@@ -1,0 +1,256 @@
+﻿/* Limit Width */
+#wrap {
+    max-width: 1920px;
+}
+
+/* Space containing the quiz */
+#container {
+}
+
+/* "Start Quiz" Button */
+#start {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+    /* When you mouse over it */
+    #start:hover {
+        border: 2px solid black;
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    /* When you click it */
+    #start:active {
+        background-color: lightgrey;
+    }
+
+/* Restart the quiz */
+#restart {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px;
+    background-color: chartreuse;
+}
+    /* When you mouse over it */
+    #restart:hover {
+        border: 2px solid black;
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    /* When you click it */
+    #restart:active {
+        background-color: lightgrey;
+    }
+
+/* Go back to the last question */
+#previous {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    background-color: aqua;
+}
+    /* When you mouse over it */
+    #previous:hover {
+        border: 2px solid black;
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    /* When you click it */
+    #previous:active {
+        background-color: lightgrey;
+    }
+
+/* Text for the current question */
+#question {
+    font-size: 20px;
+}
+
+/* Space containing the response buttons */
+#choices {
+}
+
+/* Response buttons */
+.choice {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+    /* When you mouse over it */
+    .choice:hover {
+        border: 2px solid black;
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    /* When you click it */
+    .choice:active {
+        background-color: lightgrey;
+    }
+
+/* The Cube (Praise be unto Him) */
+#animation {
+    margin: 0 auto;
+    position: absolute;
+    left: 75px;
+}
+
+/* Axes */
+#axes {
+    position: relative;
+    width: 400px;
+    left: 850px;
+    top: 150px;
+}
+/* X-Axis Information */
+#xInfo {
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+/* X-axis bar (Progressive vs. Trad) */
+#xAxis {
+    position: absolute;
+    border: 1px solid black;
+    left: 0px;
+    top: 0px;
+}
+/* Progressivist Label */
+#ProgressivistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: black;
+    left: 5px;
+    top: 56px;
+}
+/*Traditionalist Label */
+#TraditionalistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    right: 4px;
+    top: 3px;
+}
+/* Description under X-Axis */
+#xCaption {
+    font-size: 16px;
+    line-height: 1.2;
+    position: absolute;
+    left: 0.5px;
+    top: 85px;
+}
+
+/* Y-Axis Information */
+#yInfo {
+    position: relative;
+    left: 0px;
+    top: 150px;
+}
+/* Y-axis bar (Socialist vs. Capitalist) */
+#yAxis {
+    position: absolute;
+    border: 1px solid black;
+    left: 0px;
+    top: 0px;
+}
+/* Socialist Label */
+#SocialistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: black;
+    left: 5px;
+    top: 56px;
+}
+/* Capitalist Label */
+#CapitalistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    right: 4px;
+    top: 3px;
+}
+/* Description under Y-axis */
+#yCaption {
+    font-size: 16px;
+    line-height: 1.2;
+    position: absolute;
+    left: 0.5px;
+    top: 85px;
+}
+
+/* Z-Axis Information */
+#zInfo {
+    position: relative;
+    left: 0px;
+    top: 300px;
+}
+/* Z-axis bar (Anarchism vs Authoritarianism) */
+#zAxis {
+    position: absolute;
+    border: 1px solid black;
+    left: 0px;
+    top: 0px;
+}
+/* Anarchist Label */
+#AnarchistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: black;
+    left: 5px;
+    top: 56px;
+}
+/* Authoritarian Label */
+#AuthoritarianLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    right: 4px;
+    top: 3px;
+}
+/* Description under Z-axis */
+#zCaption {
+    font-size: 16px;
+    line-height: 1.2;
+    position: absolute;
+    left: 0.5px;
+    top: 85px;
+}
+
+/* Message about how to rotate the cube */
+#notice {
+}
+
+/* Randomizer button */
+#randomize {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: yellow;
+}
+
+    /* When you mouse over it */
+    #randomize:hover {
+        border: 2px solid black;
+        font-weight: bold;
+        background-color: red;
+    }
