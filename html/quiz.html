@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Politicube Quiz</title>
+    <link rel="stylesheet" href="quizStyle.css">
+</head>
+<body>
+    <div id="wrap">
+        <div id="container">
+            <div id="start">Start Quiz</div>
+            <div id="randomize" onclick="skipToEnd()">Randomize</div> <!-- JUST FOR TESTING -->
+            <div id="restart" style="display:none" onclick="startQuiz()">Restart</div><br>
+            <div id="quiz" style="display:none">
+                <div id="question"></div>
+                <div id="choices">
+                    <div class="choice" id="SA" onclick="adjust(questionBank[qNum], StrongAgree)"></div>
+                    <div class="choice" id="A" onclick="adjust(questionBank[qNum], Agree)"></div>
+                    <div class="choice" id="D" onclick="adjust(questionBank[qNum], Disagree)"></div>
+                    <div class="choice" id="SD" onclick="adjust(questionBank[qNum], StrongDisagree)"></div>
+                </div><br>
+                <div id="previous" style="display:none" onclick="renderQuestion(--qNum)">Previous</div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/Quiz.js"></script>
+</body>
+</html>
