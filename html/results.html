@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div id="cube" style="display:none">
+        <div id="notice">Click and drag to rotate the cube below</div>
+        <div id="ideology"></div>
+        <canvas width="700" height="700" id="animation"></canvas> <!-- Cube -->
+        <!-- Axis Info -->
+        <div id="axes">
+            <!-- X Axis (Cultural) -->
+            <div id="xInfo">
+                <canvas width="400" height="80" id="xAxis"></canvas>
+                <div id="ProgressivistLabel">Progressivist</div>
+                <div id="TraditionalistLabel">Traditionalist</div>
+                <div id="xCaption"><u>Cultural Axis</u>: Whether society should promote a more <br /> traditional or progressive moral framework.</div>
+            </div>
+            <!-- Y Axis (Economic) -->
+            <div id="yInfo">
+                <canvas width="400" height="80" id="yAxis"></canvas>
+                <div id="SocialistLabel">Socialist</div>
+                <div id="CapitalistLabel">Capitalist</div>
+                <div id="yCaption"><u>Economic Axis</u>: How much the state should interfere in <br /> the economy. ( < More | Less > )</div>
+            </div>
+            <!-- Z Axis (Authority) -->
+            <div id="zInfo">
+                <canvas width="400" height="80" id="zAxis"></canvas>
+                <div id="AnarchistLabel">Anarchist</div>
+                <div id="AuthoritarianLabel">Authoritarian</div>
+                <div id="zCaption"><u>Authoritarian Axis</u>: How much the state should be able <br /> to infringe upon individual rights. ( < Less | More > )</div>
+            </div>
+        </div>
+    </div>
+    <script src="cube.js"></script>
+</body>
+</html>
