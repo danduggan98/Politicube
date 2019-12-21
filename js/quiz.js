@@ -21,10 +21,10 @@
 // Z: Authority / -Z = Anarchist, +Z = Authoritarian
 
 //Possible responses and their associated weights
-const StrongAgree = -0.294;
-const StrongDisagree = 0.294;
-const Agree = -0.15;
-const Disagree = 0.15;
+const StrongAgree = -0.2941;
+const StrongDisagree = 0.2941;
+const Agree = -0.14705;
+const Disagree = 0.14705;
 
 //Grab HTML elements
 const start = document.getElementById("start");
