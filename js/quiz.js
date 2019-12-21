@@ -9,13 +9,12 @@
 //GOING OFF EDGE AT TIMES
 //shrink restart + previous buttons
 //axes circles in different spot as dot
-//uniformMatrix4fv error - reset gl canvas each time???
-//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
 
 //Politicube Quiz
 //33 questions per axis - each question relates to one category, answer pushes the user's score left or right for that axis
 
-//                  Axis Label Info
+//                 Axis Label Info
 // X: Cultural / -X = Progressive, +X = Traditionalist
 // Y: Economic / -Y = Socialist, +Y = Capitalist
 // Z: Authority / -Z = Anarchist, +Z = Authoritarian
@@ -65,7 +64,7 @@ zCanvas.getContext("2d").translate(0.5, 0.5);
 
 //Selects a new, random set of questions for this quiz session
 function pickNewQuestions() {
-    console.log("Picking New Questions");
+    console.log("Picking new questions");
 
     var chosenQs = [];
     sessionQuestions = []; //reset the current session
