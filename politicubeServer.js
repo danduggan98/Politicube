@@ -3,6 +3,7 @@
 //Set up express app
 const express = require('express');
 var app = express();
+app.use(express.static(__dirname + '/'));
 
 //Default page - redirects to home
 app.get('/', (req, res) => {
