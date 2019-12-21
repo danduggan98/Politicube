@@ -11,21 +11,17 @@ app.get('/', (req, res) => {
 
 //Home page
 app.get('/home', (req, res) => {
-    //res.send('Welcome!');
-    //MAKE + SEND html file
     res.sendFile(__dirname + '/html/' + 'home.html');
 });
 
 //Quiz page
 app.get('/quiz', (req, res) => {
-    //res.send('LEGGO');
     res.sendFile(__dirname + '/html/' + 'quiz.html');
 });
 
 //User results page
-app.get('/result', (req, res) => {
-    res.send('nice');
-    //res.sendFile(__dirname + '/results.html);
+app.get('/results', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'results.html');
 });
 
 //Handle 404 errors
