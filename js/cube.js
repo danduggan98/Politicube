@@ -1,5 +1,7 @@
 //Display results, animation, individual axes, and name their ideology
 
+//Affirmative -> right wing = -1, affirmative -> left wing = +1 - TRY THIS OUT
+
 function showResults() {
     console.log("Prepare thineself. The Cube cometh.");
 
