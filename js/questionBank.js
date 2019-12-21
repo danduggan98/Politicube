@@ -1,6 +1,6 @@
 // List of questions and their values
 
-var questions = [
+const questionList = [
     //Neutral question
     {
         text: "How would you best classify your political beliefs?",
