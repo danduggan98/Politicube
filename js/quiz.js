@@ -167,9 +167,9 @@ function skipToEnd() {
     start.style.display = "none";
     console.log("Generating random values");
 
-    score.cultural = ((Math.random() * 20) - 10) / 10;
-    score.economic = ((Math.random() * 20) - 10) / 10;
-    score.authoritarian = ((Math.random() * 20) - 10) / 10;
+    score.cultural = ((Math.random() * 20) - 10);
+    score.economic = ((Math.random() * 20) - 10);
+    score.authoritarian = ((Math.random() * 20) - 10);
 
     seeResults();
 }
