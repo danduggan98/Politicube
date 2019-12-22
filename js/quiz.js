@@ -1,14 +1,14 @@
 //TO-DO
-//Fine-tune ideology labels - make them more accurate/in-depth
-//THEN show them people/authors related to their ideology, link to books of their relavant works
-//Test out alternate question strat (-1 for right wing Q)
-//SMOOTH score point on cube
-//
-//GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
-//GOING OFF EDGE AT TIMES - fix values
-//shrink restart + previous buttons
-//axes circles in different spot as dot
-//Make axes images?
+    //Fine-tune ideology labels - make them more accurate/in-depth
+    //THEN show them people/authors related to their ideology, link to books of their relavant works
+    //Test out alternate question strat (-1 for right wing Q)
+    //SMOOTH score point on cube
+    //
+//BUGS
+    //GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
+    //GOING OFF EDGE AT TIMES - fix values (related to this problem ^^^)
+    //axes circles in different spot as dot
+    //Make axes images?
 //-----------------------------------------------------------------------------------------------
 
 //Politicube Quiz
