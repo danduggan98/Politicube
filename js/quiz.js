@@ -3,13 +3,12 @@
 //THEN show them people/authors related to their ideology, link to books of their relavant works
 //Test out alternate question strat (-1 for right wing Q)
 //SMOOTH CIRCLES (AXES AND POINT LABEL) - the axis circle is particularly gritty
-//FIGURE OUT WHY AXES WON'T MOVE ON SITE
-//MAKE "SEE RESULTS" BUTTON APPEAR ONCE THEY FINISH
 //
-//GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS()
-//GOING OFF EDGE AT TIMES
+//GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
+//GOING OFF EDGE AT TIMES - fix values
 //shrink restart + previous buttons
 //axes circles in different spot as dot
+//Make axes images?
 //-----------------------------------------------------------------------------------------------
 
 //Politicube Quiz
@@ -102,19 +101,29 @@ function renderQuestion(qIndex) {
     }
 }
 
-//Change the score once a question is answered - Ex: adjust(questionBank[3], Disagree)
+//Change the score once a question is answered
 function adjust(answer) {
     console.log("Answered question #" + (current + 1) + " with value " + answer);
     sessionQuestions[current].userVal = answer;
 
     //Render the next question
     if (current < numQs) {
-        renderQuestion(++current);
+        nextQuestion();
     }
     else {
         calculateScore(); //Get the final score for the user
         resultsBtn.style.display = "block"; //Show the 'view results' button
     }
+}
+
+//Go to the previous question
+function previousQuestion() {
+    renderQuestion(--current);
+}
+
+//Go to the next question
+function nextQuestion() {
+    renderQuestion(++current);
 }
 
 //Return random index number between 0 and 99 (100 questions)
@@ -150,7 +159,7 @@ function calculateScore() {
 
 //Send the user to the results page
 function seeResults() {
-    window.location = 'http://127.0.0.1:3000/results'; //PASS SCORE TO RESULTS PAGE
+    window.location = 'http://127.0.0.1:3000/results?c=' + score.cultural + '&e=' + score.economic + '&a=' + score.authoritarian;
 }
 
 //End it all (For testing and to minimize headaches)
