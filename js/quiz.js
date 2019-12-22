@@ -4,12 +4,13 @@
 //Test out alternate question strat (-1 for right wing Q)
 //SMOOTH CIRCLES (AXES AND POINT LABEL) - the axis circle is particularly gritty
 //FIGURE OUT WHY AXES WON'T MOVE ON SITE
+//MAKE "SEE RESULTS" BUTTON APPEAR ONCE THEY FINISH
 //
 //GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS()
 //GOING OFF EDGE AT TIMES
 //shrink restart + previous buttons
 //axes circles in different spot as dot
-//----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
 //Politicube Quiz
 //33 questions per axis - each question relates to one category, answer pushes the user's score left or right for that axis
@@ -35,46 +36,35 @@ const choiceSA = document.getElementById("SA");
 const choiceSD = document.getElementById("SD");
 const choiceA = document.getElementById("A");
 const choiceD = document.getElementById("D");
-const canvas = document.getElementById('animation');
-const xCanvas = document.getElementById("xAxis");
-const yCanvas = document.getElementById("yAxis");
-const zCanvas = document.getElementById("zAxis");
-const xCaption = document.getElementById("xCaption");
-const yCaption = document.getElementById("yCaption");
-const zCaption = document.getElementById("zCaption");
-const ideology = document.getElementById("ideology");
+const resultsBtn = document.getElementById("results");
 
 //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
-var questionBank = questions;
+var questionBank = questionList;
 
 var sessionQuestions = []; //Questions given to user
-var qNum = 0; //current question number
+var current = 0; //Current question number
 var numQs = questionBank.length - 1; //Number of total questions
+start.addEventListener("click", startQuiz);
 
-var score = { //Track user's score
+//Track user's score
+var score = {
     cultural: 0.0,
     economic: 0.0,
     authoritarian: 0.0
 };
 
-start.addEventListener("click", startQuiz);
-xCanvas.getContext("2d").translate(0.5, 0.5); //Adjust axes to straighten lines
-yCanvas.getContext("2d").translate(0.5, 0.5);
-zCanvas.getContext("2d").translate(0.5, 0.5);
-
 //Selects a new, random set of questions for this quiz session
 function pickNewQuestions() {
     console.log("Picking new questions");
 
-    var chosenQs = [];
-    sessionQuestions = []; //reset the current session
+    sessionQuestions = []; //Reset the current session
     var index;
 
     //Select questions in a random order, avoiding repeats
-    for (i = 0; i <= numQs; i++) {
+    for (let i = 0; i <= numQs; i++) {
         index = getRandomIndex();
 
-        for (j = 0; j < sessionQuestions.length; j++) {
+        for (let j = 0; j < sessionQuestions.length; j++) {
             if (sessionQuestions[j] === questionBank[index]) {
                 console.log("Index " + index + " unsuccessful. Trying again.");
                 index = getRandomIndex();
@@ -82,7 +72,7 @@ function pickNewQuestions() {
         }
         console.log("Selected question " + index + " - placing in position " + i);
         sessionQuestions[i] = questionBank[index];
-        sessionQuestions[i].userVal = 0; //Add a value to each object which keeps track of the question's score
+        sessionQuestions[i].userVal = 0.0; //Add a value to each object which keeps track of the question's score
     }
     console.log("Session questions selected!");
 }
@@ -93,12 +83,12 @@ function renderQuestion(qIndex) {
     if (qIndex < 0) qIndex = 0;
 
     //Grab and display a question
-    qNum = qIndex;
-    console.log("Showing question " + (qNum + 1));
-    question.innerHTML = "<p>" + (qNum + 1) + ". " + sessionQuestions[qNum].text + "</p>";
+    current = qIndex;
+    console.log("Showing question " + (current + 1));
+    question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
 
     //Change text for neutral question (first one in question bank)
-    if (sessionQuestions[qNum].text == questionBank[0].text) {
+    if (sessionQuestions[current].text === questionBank[0].text) {
         choiceSA.innerHTML = "Far-Left";
         choiceSD.innerHTML = "Far-Right";
         choiceA.innerHTML = "Center-Left";
@@ -113,18 +103,17 @@ function renderQuestion(qIndex) {
 }
 
 //Change the score once a question is answered - Ex: adjust(questionBank[3], Disagree)
-function adjust(q, answer) {
-    console.log("Answered question #" + (qNum + 1) + " with value " + answer);
-    sessionQuestions[qNum].userVal = answer;
+function adjust(answer) {
+    console.log("Answered question #" + (current + 1) + " with value " + answer);
+    sessionQuestions[current].userVal = answer;
 
     //Render the next question
-    if (qNum < numQs) {
-        qNum++;
-        renderQuestion(qNum);
+    if (current < numQs) {
+        renderQuestion(++current);
     }
     else {
         calculateScore(); //Get the final score for the user
-        showResults(); //Reveal the cube at long last
+        resultsBtn.style.display = "block"; //Show the 'view results' button
     }
 }
 
@@ -135,22 +124,22 @@ function getRandomIndex() {
 
 //Run the quiz from the start with new questions
 function startQuiz() {
-    //Display quiz, hide cube
+    //Display quiz
     start.style.display = "none";
-    quiz.style.display = "block";
     restart.style.display = "none";
+    quiz.style.display = "block";
     previous.style.display = "block";
-    cube.style.display = "none";
 
     //Select first question, reset question counter
     pickNewQuestions();
-    qNum = 0;
+    current = 0;
     renderQuestion(0);
 }
 
 //Add up the scores for each question to get the user score
 function calculateScore() {
-    for (i = 0; i < numQs; i++) {
+    var q;
+    for (let i = 0; i < numQs; i++) {
         q = sessionQuestions[i];
         //Adjust each axis based on response, round to two decimal places
         score.cultural = (Math.round((score.cultural + (q.C * q.userVal)) * 100) / 100);
@@ -159,32 +148,19 @@ function calculateScore() {
     }
 }
 
+//Send the user to the results page
+function seeResults() {
+    window.location = 'http://127.0.0.1:3000/results'; //PASS SCORE TO RESULTS PAGE
+}
+
 //End it all (For testing and to minimize headaches)
 function skipToEnd() {
     start.style.display = "none";
     console.log("Generating random values");
 
-    score.cultural = ((Math.random() * 20) - 10);
-    score.economic = ((Math.random() * 20) - 10);
-    score.authoritarian = ((Math.random() * 20) - 10);
+    score.cultural = ((Math.random() * 20) - 10) / 10;
+    score.economic = ((Math.random() * 20) - 10) / 10;
+    score.authoritarian = ((Math.random() * 20) - 10) / 10;
 
-    showResults();
-    showAxes(score.cultural / 10, score.economic / 10, score.authoritarian / 10);
-}
-
-//Calculate the user's closest ideology (in the most convoluted, unintuitive way possible)
-function getIdeology() {
-    let C = score.cultural;
-    let E = score.economic;
-    let A = score.authoritarian;
-
-    //Determine closest ideology, pick point color based on quadrant
-    if (C < 0 && E < 0 && A < 0) { return "Progressive Communist"; } //bottom back left   = Progressive Anarchist Socialist
-    if (C > 0 && E < 0 && A < 0) { return "Traditional Communist"; } //bottom back right  = Traditionalist Anarchist Socialist
-    if (C < 0 && E > 0 && A < 0) { return "Progressive Anarcho-Capitalist"; } //top back left      = Progressive Anarchist Capitalist
-    if (C > 0 && E > 0 && A < 0) { return "Traditional Anarcho-Capitalist"; } //top back right     = Traditionalist Anarchist Capitalist
-    if (C < 0 && E < 0 && A > 0) { return "Progressive Authoritarian Socialist"; } //bottom front left  = Progressive Authoritarian Socialist
-    if (C > 0 && E < 0 && A > 0) { return "Traditional Authoritarian Socialist"; } //bottom front right = Traditionalist Authoritarian Socialist
-    if (C < 0 && E > 0 && A > 0) { return "Progressive Authoritarian Capitalist"; } //top front left     = Progressive Authoritarian Capitalist
-    if (C > 0 && E > 0 && A > 0) { return "Traditional Authoritarian Capitalist"; } //top front right    = Traditionalist Authoritarian Capitalist
+    seeResults();
 }
