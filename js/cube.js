@@ -19,9 +19,9 @@ zCanvas.getContext("2d").translate(0.5, 0.5);
 
 //Get url parameters for the user score and show results based on that
 const params = new URLSearchParams(window.location.search);
-const cVal = params.get('c') / 10;
-const eVal = params.get('e') / 10;
-const aVal = params.get('a') / 10;
+const cVal = params.get('c');
+const eVal = params.get('e');
+const aVal = params.get('a');
 showResults();
 
 function showResults() {
