@@ -12,11 +12,16 @@ const yCaption = document.getElementById("yCaption");
 const zCaption = document.getElementById("zCaption");
 const ideology = document.getElementById("ideology");
 
-//Adjust axes to straighten lines
+//Adjust axes slightly to straighten lines
 xCanvas.getContext("2d").translate(0.5, 0.5);
 yCanvas.getContext("2d").translate(0.5, 0.5);
 zCanvas.getContext("2d").translate(0.5, 0.5);
 
+//Get url parameters for the user score and show results based on that
+const params = new URLSearchParams(window.location.search);
+const cVal = params.get('c') / 10;
+const eVal = params.get('e') / 10;
+const aVal = params.get('a') / 10;
 showResults();
 
 function showResults() {
@@ -25,22 +30,17 @@ function showResults() {
     //Display user ideology
     ideology.innerHTML = "Your ideology is closest to: " + getIdeology();
 
-    //Locations of the user's score on each axis
-    var cVal = (score.cultural / 10.0);
-    var eVal = (score.economic / 10.0);
-    var aVal = (score.authoritarian / 10.0);
-
     //Show the cube and axes with the user's score
-    displayCube(cVal, eVal, aVal);
-    showAxes(cVal, eVal, aVal);
+    displayCube();
+    showAxes();
 }
 
 //Show the user's score for each axis individually
-function showAxes(c, e, a) {
+function showAxes() {
     //Reveal everything
     notice.style.display = "block";
     axes.style.display = "block";
-    console.log("Final user score -> Cultural: " + score.cultural + ", Economic: " + score.economic + ", Authoritarian: " + score.authoritarian); //Display score for testing
+    console.log("Final user score -> Cultural: " + cVal + ", Economic: " + eVal + ", Authoritarian: " + aVal); //Display score for testing
 
     /*==================== 2D AXES ====================== */
 
@@ -82,7 +82,7 @@ function showAxes(c, e, a) {
 
     //User score point
     xCtx.beginPath();
-    xCtx.arc(midWidth + (c * midWidth), midHeight, 10, 0, 2 * Math.PI);
+    xCtx.arc(midWidth + (cVal * midWidth), midHeight, 10, 0, 2 * Math.PI);
     xCtx.stroke();
     xCtx.fillStyle = "black";
     xCtx.fill();
@@ -119,7 +119,7 @@ function showAxes(c, e, a) {
 
     //User score point
     yCtx.beginPath();
-    yCtx.arc(midWidth + (e * midWidth), midHeight, 10, 0, 2 * Math.PI);
+    yCtx.arc(midWidth + (eVal * midWidth), midHeight, 10, 0, 2 * Math.PI);
     yCtx.stroke();
     yCtx.fillStyle = "black";
     yCtx.fill();
@@ -156,14 +156,14 @@ function showAxes(c, e, a) {
 
     //User score point
     zCtx.beginPath();
-    zCtx.arc(midWidth + (a * midWidth), midHeight, 10, 0, 2 * Math.PI);
+    zCtx.arc(midWidth + (aVal * midWidth), midHeight, 10, 0, 2 * Math.PI);
     zCtx.stroke();
     zCtx.fillStyle = "black";
     zCtx.fill();
 }
 
 //Show the cube animation
-function displayCube(c, e, a) {
+function displayCube() {
     //Grab the canvas for the cube
     gl = canvas.getContext('experimental-webgl');
 
@@ -182,7 +182,7 @@ function displayCube(c, e, a) {
         -1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0,
 
         //User score #30
-        c, e, a,
+        cVal, eVal, aVal,
 
         //Axis arrows #31-42
         -0.95, 0.05, 0, -0.95, -0.05, 0,
@@ -361,9 +361,9 @@ function displayCube(c, e, a) {
     /*=========================rotation================*/
 
     function rotateX(m, angle) {
-        let c = Math.cos(angle);
-        let s = Math.sin(angle);
-        let mv1 = m[1], mv5 = m[5], mv9 = m[9];
+        var c = Math.cos(angle);
+        var s = Math.sin(angle);
+        var mv1 = m[1], mv5 = m[5], mv9 = m[9];
 
         m[1] = m[1] * c - m[2] * s;
         m[5] = m[5] * c - m[6] * s;
@@ -375,9 +375,9 @@ function displayCube(c, e, a) {
     }
 
     function rotateY(m, angle) {
-        let c = Math.cos(angle);
-        let s = Math.sin(angle);
-        let mv0 = m[0], mv4 = m[4], mv8 = m[8];
+        var c = Math.cos(angle);
+        var s = Math.sin(angle);
+        var mv0 = m[0], mv4 = m[4], mv8 = m[8];
 
         m[0] = c * m[0] + s * m[2];
         m[4] = c * m[4] + s * m[6];
@@ -395,7 +395,6 @@ function displayCube(c, e, a) {
     var time_old = 0;
 
     var animate = function (time) {
-        var dt = time - time_old;
 
         if (!drag) {
             dX *= AMORTIZATION, dY *= AMORTIZATION;
@@ -443,17 +442,14 @@ function displayCube(c, e, a) {
 
 //Calculate the user's closest ideology (in the most convoluted, unintuitive way possible)
 function getIdeology() {
-    let C = score.cultural;
-    let E = score.economic;
-    let A = score.authoritarian;
 
     //Determine closest ideology, pick point color based on quadrant
-    if (C < 0 && E < 0 && A < 0) { return "Progressive Communist"; } //bottom back left   = Progressive Anarchist Socialist
-    if (C > 0 && E < 0 && A < 0) { return "Traditional Communist"; } //bottom back right  = Traditionalist Anarchist Socialist
-    if (C < 0 && E > 0 && A < 0) { return "Progressive Anarcho-Capitalist"; } //top back left      = Progressive Anarchist Capitalist
-    if (C > 0 && E > 0 && A < 0) { return "Traditional Anarcho-Capitalist"; } //top back right     = Traditionalist Anarchist Capitalist
-    if (C < 0 && E < 0 && A > 0) { return "Progressive Authoritarian Socialist"; } //bottom front left  = Progressive Authoritarian Socialist
-    if (C > 0 && E < 0 && A > 0) { return "Traditional Authoritarian Socialist"; } //bottom front right = Traditionalist Authoritarian Socialist
-    if (C < 0 && E > 0 && A > 0) { return "Progressive Authoritarian Capitalist"; } //top front left     = Progressive Authoritarian Capitalist
-    if (C > 0 && E > 0 && A > 0) { return "Traditional Authoritarian Capitalist"; } //top front right    = Traditionalist Authoritarian Capitalist
+    if (cVal < 0 && eVal < 0 && aVal < 0) { return "Progressive Communist"; } //bottom back left   = Progressive Anarchist Socialist
+    if (cVal > 0 && eVal < 0 && aVal < 0) { return "Traditional Communist"; } //bottom back right  = Traditionalist Anarchist Socialist
+    if (cVal < 0 && eVal > 0 && aVal < 0) { return "Progressive Anarcho-Capitalist"; } //top back left      = Progressive Anarchist Capitalist
+    if (cVal > 0 && eVal > 0 && aVal < 0) { return "Traditional Anarcho-Capitalist"; } //top back right     = Traditionalist Anarchist Capitalist
+    if (cVal < 0 && eVal < 0 && aVal > 0) { return "Progressive Authoritarian Socialist"; } //bottom front left  = Progressive Authoritarian Socialist
+    if (cVal > 0 && eVal < 0 && aVal > 0) { return "Traditional Authoritarian Socialist"; } //bottom front right = Traditionalist Authoritarian Socialist
+    if (cVal < 0 && eVal > 0 && aVal > 0) { return "Progressive Authoritarian Capitalist"; } //top front left     = Progressive Authoritarian Capitalist
+    if (cVal > 0 && eVal > 0 && aVal > 0) { return "Traditional Authoritarian Capitalist"; } //top front right    = Traditionalist Authoritarian Capitalist
 }
