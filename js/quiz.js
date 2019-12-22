@@ -2,7 +2,7 @@
 //Fine-tune ideology labels - make them more accurate/in-depth
 //THEN show them people/authors related to their ideology, link to books of their relavant works
 //Test out alternate question strat (-1 for right wing Q)
-//SMOOTH CIRCLES (AXES AND POINT LABEL) - the axis circle is particularly gritty
+//SMOOTH score point on cube
 //
 //GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
 //GOING OFF EDGE AT TIMES - fix values
@@ -20,10 +20,10 @@
 // Z: Authority / -Z = Anarchist, +Z = Authoritarian
 
 //Possible responses and their associated weights
-const StrongAgree = -0.2941;
-const StrongDisagree = 0.2941;
-const Agree = -0.14705;
-const Disagree = 0.14705;
+const StrongAgree = -0.02941;
+const StrongDisagree = 0.02941;
+const Agree = -0.014705;
+const Disagree = 0.014705;
 
 //Grab HTML elements
 const start = document.getElementById("start");
@@ -167,9 +167,9 @@ function skipToEnd() {
     start.style.display = "none";
     console.log("Generating random values");
 
-    score.cultural = ((Math.random() * 20) - 10);
-    score.economic = ((Math.random() * 20) - 10);
-    score.authoritarian = ((Math.random() * 20) - 10);
+    score.cultural = ((Math.random() * 2) - 1);
+    score.economic = ((Math.random() * 2) - 1);
+    score.authoritarian = ((Math.random() * 2) - 1);
 
     seeResults();
 }
