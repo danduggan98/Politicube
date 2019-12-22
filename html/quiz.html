@@ -14,16 +14,17 @@
             <div id="quiz" style="display:none">
                 <div id="question"></div>
                 <div id="choices">
-                    <div class="choice" id="SA" onclick="adjust(questionBank[qNum], StrongAgree)"></div>
-                    <div class="choice" id="A" onclick="adjust(questionBank[qNum], Agree)"></div>
-                    <div class="choice" id="D" onclick="adjust(questionBank[qNum], Disagree)"></div>
-                    <div class="choice" id="SD" onclick="adjust(questionBank[qNum], StrongDisagree)"></div>
+                    <div class="choice" id="SA" onclick="adjust(StrongAgree)"></div>
+                    <div class="choice" id="A" onclick="adjust(Agree)"></div>
+                    <div class="choice" id="D" onclick="adjust(Disagree)"></div>
+                    <div class="choice" id="SD" onclick="adjust(StrongDisagree)"></div>
                 </div><br>
                 <div id="previous" style="display:none" onclick="renderQuestion(--qNum)">Previous</div>
             </div>
         </div>
+        <button id="results" type="button" onclick="seeResults();" style="display:none">View Results</button>
     </div>
-    <script type="text/javascript" src="js/quiz.js"></script>
     <script type="text/javascript" src="js/questionBank.js"></script>
+    <script type="text/javascript" src="js/quiz.js"></script>
 </body>
 </html>
