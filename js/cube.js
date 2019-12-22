@@ -1,26 +1,171 @@
-//Display results, animation, individual axes, and name their ideology
+//Display results, animation, and individual axes, plus name their ideology
 
 //Affirmative -> right wing = -1, affirmative -> left wing = +1 - TRY THIS OUT
+
+//Grab HTML elements
+const canvas = document.getElementById('animation');
+const xCanvas = document.getElementById("xAxis");
+const yCanvas = document.getElementById("yAxis");
+const zCanvas = document.getElementById("zAxis");
+const xCaption = document.getElementById("xCaption");
+const yCaption = document.getElementById("yCaption");
+const zCaption = document.getElementById("zCaption");
+const ideology = document.getElementById("ideology");
+
+//Adjust axes to straighten lines
+xCanvas.getContext("2d").translate(0.5, 0.5);
+yCanvas.getContext("2d").translate(0.5, 0.5);
+zCanvas.getContext("2d").translate(0.5, 0.5);
+
+showResults();
 
 function showResults() {
     console.log("Prepare thineself. The Cube cometh.");
 
-    //Hide quiz, reveal cube + restart button
-    quiz.style.display = "none";
-    restart.style.display = "block";
-    previous.style.display = "none";
-    cube.style.display = "block";
-
     //Display user ideology
     ideology.innerHTML = "Your ideology is closest to: " + getIdeology();
-
-    //Grab the canvas for the cube
-    gl = canvas.getContext('experimental-webgl');
 
     //Locations of the user's score on each axis
     var cVal = (score.cultural / 10.0);
     var eVal = (score.economic / 10.0);
     var aVal = (score.authoritarian / 10.0);
+
+    //Show the cube and axes with the user's score
+    displayCube(cVal, eVal, aVal);
+    showAxes(cVal, eVal, aVal);
+}
+
+//Show the user's score for each axis individually
+function showAxes(c, e, a) {
+    //Reveal everything
+    notice.style.display = "block";
+    axes.style.display = "block";
+    console.log("Final user score -> Cultural: " + score.cultural + ", Economic: " + score.economic + ", Authoritarian: " + score.authoritarian); //Display score for testing
+
+    /*==================== 2D AXES ====================== */
+
+    //X axis
+    var xCtx = xCanvas.getContext("2d");
+
+    //Constants for size of axes (all uniform height/width)
+    var axisWidth = xCtx.canvas.width;
+    var axisHeight = xCtx.canvas.height;
+    var midWidth = axisWidth / 2;
+    var midHeight = axisHeight / 2;
+
+    //Create gradient
+    var xGrd = xCtx.createLinearGradient(0, 0, axisWidth, 0);
+    xGrd.addColorStop(0, "#ffdf00");
+    xGrd.addColorStop(1, "blue");
+
+    // Fill with gradient
+    xCtx.fillStyle = xGrd;
+    xCtx.fillRect(-.5, -.5, axisWidth, axisHeight);
+
+    //Main line
+    xCtx.moveTo(0, midHeight);
+    xCtx.lineTo(axisWidth, midHeight);
+    xCtx.stroke();
+
+    //Left, middle, right bars
+    xCtx.moveTo(0, midHeight + 12);
+    xCtx.lineTo(0, midHeight - 12);
+    xCtx.stroke();
+
+    xCtx.moveTo(midWidth, midHeight + 12);
+    xCtx.lineTo(midWidth, midHeight - 12);
+    xCtx.stroke();
+
+    xCtx.moveTo(axisWidth - 1, midHeight + 12);
+    xCtx.lineTo(axisWidth - 1, midHeight - 12);
+    xCtx.stroke();
+
+    //User score point
+    xCtx.beginPath();
+    xCtx.arc(midWidth + (c * midWidth), midHeight, 10, 0, 2 * Math.PI);
+    xCtx.stroke();
+    xCtx.fillStyle = "black";
+    xCtx.fill();
+
+    //Y axis
+    var yCtx = yCanvas.getContext("2d");
+
+    //Create gradient
+    var yGrd = yCtx.createLinearGradient(0, 0, axisWidth, 0);
+    yGrd.addColorStop(0, "lime");
+    yGrd.addColorStop(1, "magenta");
+
+    //Fill with gradient
+    yCtx.fillStyle = yGrd;
+    yCtx.fillRect(-.5, -.5, axisWidth, axisHeight);
+
+    //Main line
+    yCtx.moveTo(0, midHeight);
+    yCtx.lineTo(axisWidth, midHeight);
+    yCtx.stroke();
+
+    //Left, middle, right bars
+    yCtx.moveTo(0, midHeight + 12);
+    yCtx.lineTo(0, midHeight - 12);
+    yCtx.stroke();
+
+    yCtx.moveTo(midWidth, midHeight + 12);
+    yCtx.lineTo(midWidth, midHeight - 12);
+    yCtx.stroke();
+
+    yCtx.moveTo(axisWidth - 1, midHeight + 12);
+    yCtx.lineTo(axisWidth - 1, midHeight - 12);
+    yCtx.stroke();
+
+    //User score point
+    yCtx.beginPath();
+    yCtx.arc(midWidth + (e * midWidth), midHeight, 10, 0, 2 * Math.PI);
+    yCtx.stroke();
+    yCtx.fillStyle = "black";
+    yCtx.fill();
+
+    //Z axis
+    var zCtx = zCanvas.getContext("2d");
+
+    //Create gradient
+    var zGrd = zCtx.createLinearGradient(0, 0, axisWidth, 0);
+    zGrd.addColorStop(0, "cyan");
+    zGrd.addColorStop(1, "red");
+
+    // Fill with gradient
+    zCtx.fillStyle = zGrd;
+    zCtx.fillRect(-.5, -.5, axisWidth, axisHeight);
+
+    //Main line
+    zCtx.moveTo(0, midHeight);
+    zCtx.lineTo(axisWidth, midHeight);
+    zCtx.stroke();
+
+    //Left, middle, right bars
+    zCtx.moveTo(0, midHeight + 12);
+    zCtx.lineTo(0, midHeight - 12);
+    zCtx.stroke();
+
+    zCtx.moveTo(midWidth, midHeight + 12);
+    zCtx.lineTo(midWidth, midHeight - 12);
+    zCtx.stroke();
+
+    zCtx.moveTo(axisWidth - 1, midHeight + 12);
+    zCtx.lineTo(axisWidth - 1, midHeight - 12);
+    zCtx.stroke();
+
+    //User score point
+    zCtx.beginPath();
+    zCtx.arc(midWidth + (a * midWidth), midHeight, 10, 0, 2 * Math.PI);
+    zCtx.stroke();
+    zCtx.fillStyle = "black";
+    zCtx.fill();
+}
+
+//Show the cube animation
+function displayCube(c, e, a) {
+    //Grab the canvas for the cube
+    gl = canvas.getContext('experimental-webgl');
 
     /*=================== GEOMETRY =================== */
 
@@ -37,7 +182,7 @@ function showResults() {
         -1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0,
 
         //User score #30
-        cVal, eVal, aVal,
+        c, e, a,
 
         //Axis arrows #31-42
         -0.95, 0.05, 0, -0.95, -0.05, 0,
@@ -216,9 +361,9 @@ function showResults() {
     /*=========================rotation================*/
 
     function rotateX(m, angle) {
-        var c = Math.cos(angle);
-        var s = Math.sin(angle);
-        var mv1 = m[1], mv5 = m[5], mv9 = m[9];
+        let c = Math.cos(angle);
+        let s = Math.sin(angle);
+        let mv1 = m[1], mv5 = m[5], mv9 = m[9];
 
         m[1] = m[1] * c - m[2] * s;
         m[5] = m[5] * c - m[6] * s;
@@ -230,9 +375,9 @@ function showResults() {
     }
 
     function rotateY(m, angle) {
-        var c = Math.cos(angle);
-        var s = Math.sin(angle);
-        var mv0 = m[0], mv4 = m[4], mv8 = m[8];
+        let c = Math.cos(angle);
+        let s = Math.sin(angle);
+        let mv0 = m[0], mv4 = m[4], mv8 = m[8];
 
         m[0] = c * m[0] + s * m[2];
         m[4] = c * m[4] + s * m[6];
@@ -294,132 +439,21 @@ function showResults() {
         window.requestAnimationFrame(animate);
     }
     animate(0);
-    showAxes(cVal, eVal, aVal);
 }
 
-//Show the user's score for each axis individually
-function showAxes(c, e, a) {
-    //Reveal everything
-    notice.style.display = "block";
-    axes.style.display = "block";
-    console.log("Final user score -> Cultural: " + score.cultural + ", Economic: " + score.economic + ", Authoritarian: " + score.authoritarian); //Display score for testing
+//Calculate the user's closest ideology (in the most convoluted, unintuitive way possible)
+function getIdeology() {
+    let C = score.cultural;
+    let E = score.economic;
+    let A = score.authoritarian;
 
-    /*==================== 2D AXES ====================== */
-
-    //X axis
-    var xCtx = xCanvas.getContext("2d");
-
-    //Constants for size of axes (all uniform height/width)
-    var axisWidth = xCtx.canvas.width;
-    var axisHeight = xCtx.canvas.height;
-    var midWidth = axisWidth / 2;
-    var midHeight = axisHeight / 2;
-
-    //Create gradient
-    var xGrd = xCtx.createLinearGradient(0, 0, axisWidth, 0);
-    xGrd.addColorStop(0, "#ffdf00");
-    xGrd.addColorStop(1, "blue");
-
-    // Fill with gradient
-    xCtx.fillStyle = xGrd;
-    xCtx.fillRect(-.5, -.5, axisWidth, axisHeight);
-
-    //Main line
-    xCtx.moveTo(0, midHeight);
-    xCtx.lineTo(axisWidth, midHeight);
-    xCtx.stroke();
-
-    //Left, middle, right bars
-    xCtx.moveTo(0, midHeight + 12);
-    xCtx.lineTo(0, midHeight - 12);
-    xCtx.stroke();
-
-    xCtx.moveTo(midWidth, midHeight + 12);
-    xCtx.lineTo(midWidth, midHeight - 12);
-    xCtx.stroke();
-
-    xCtx.moveTo(axisWidth - 1, midHeight + 12);
-    xCtx.lineTo(axisWidth - 1, midHeight - 12);
-    xCtx.stroke();
-
-    //User score point
-    xCtx.beginPath();
-    xCtx.arc(midWidth + (c * midWidth), midHeight, 10, 0, 2 * Math.PI);
-    xCtx.stroke();
-    xCtx.fillStyle = "black";
-    xCtx.fill();
-
-    //Y axis
-    var yCtx = yCanvas.getContext("2d");
-
-    //Create gradient
-    var yGrd = yCtx.createLinearGradient(0, 0, axisWidth, 0);
-    yGrd.addColorStop(0, "lime");
-    yGrd.addColorStop(1, "magenta");
-
-    //Fill with gradient
-    yCtx.fillStyle = yGrd;
-    yCtx.fillRect(-.5, -.5, axisWidth, axisHeight);
-
-    //Main line
-    yCtx.moveTo(0, midHeight);
-    yCtx.lineTo(axisWidth, midHeight);
-    yCtx.stroke();
-
-    //Left, middle, right bars
-    yCtx.moveTo(0, midHeight + 12);
-    yCtx.lineTo(0, midHeight - 12);
-    yCtx.stroke();
-
-    yCtx.moveTo(midWidth, midHeight + 12);
-    yCtx.lineTo(midWidth, midHeight - 12);
-    yCtx.stroke();
-
-    yCtx.moveTo(axisWidth - 1, midHeight + 12);
-    yCtx.lineTo(axisWidth - 1, midHeight - 12);
-    yCtx.stroke();
-
-    //User score point
-    yCtx.beginPath();
-    yCtx.arc(midWidth + (e * midWidth), midHeight, 10, 0, 2 * Math.PI);
-    yCtx.stroke();
-    yCtx.fillStyle = "black";
-    yCtx.fill();
-
-    //Z axis
-    var zCtx = zCanvas.getContext("2d");
-
-    //Create gradient
-    var zGrd = zCtx.createLinearGradient(0, 0, axisWidth, 0);
-    zGrd.addColorStop(0, "cyan");
-    zGrd.addColorStop(1, "red");
-
-    // Fill with gradient
-    zCtx.fillStyle = zGrd;
-    zCtx.fillRect(-.5, -.5, axisWidth, axisHeight);
-
-    //Main line
-    zCtx.moveTo(0, midHeight);
-    zCtx.lineTo(axisWidth, midHeight);
-    zCtx.stroke();
-
-    //Left, middle, right bars
-    zCtx.moveTo(0, midHeight + 12);
-    zCtx.lineTo(0, midHeight - 12);
-    zCtx.stroke();
-
-    zCtx.moveTo(midWidth, midHeight + 12);
-    zCtx.lineTo(midWidth, midHeight - 12);
-    zCtx.stroke();
-
-    zCtx.moveTo(axisWidth - 1, midHeight + 12);
-    zCtx.lineTo(axisWidth - 1, midHeight - 12);
-    zCtx.stroke();
-
-    //User score point
-    zCtx.beginPath();
-    zCtx.arc(midWidth + (a * midWidth), midHeight, 10, 0, 2 * Math.PI);
-    zCtx.stroke();
-    zCtx.fillStyle = "black";
-    zCtx.fill();
+    //Determine closest ideology, pick point color based on quadrant
+    if (C < 0 && E < 0 && A < 0) { return "Progressive Communist"; } //bottom back left   = Progressive Anarchist Socialist
+    if (C > 0 && E < 0 && A < 0) { return "Traditional Communist"; } //bottom back right  = Traditionalist Anarchist Socialist
+    if (C < 0 && E > 0 && A < 0) { return "Progressive Anarcho-Capitalist"; } //top back left      = Progressive Anarchist Capitalist
+    if (C > 0 && E > 0 && A < 0) { return "Traditional Anarcho-Capitalist"; } //top back right     = Traditionalist Anarchist Capitalist
+    if (C < 0 && E < 0 && A > 0) { return "Progressive Authoritarian Socialist"; } //bottom front left  = Progressive Authoritarian Socialist
+    if (C > 0 && E < 0 && A > 0) { return "Traditional Authoritarian Socialist"; } //bottom front right = Traditionalist Authoritarian Socialist
+    if (C < 0 && E > 0 && A > 0) { return "Progressive Authoritarian Capitalist"; } //top front left     = Progressive Authoritarian Capitalist
+    if (C > 0 && E > 0 && A > 0) { return "Traditional Authoritarian Capitalist"; } //top front right    = Traditionalist Authoritarian Capitalist
 }
