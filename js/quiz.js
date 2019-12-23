@@ -5,12 +5,8 @@
     //SMOOTH score point on cube
     //
 //BUGS
-    //GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
+    //GETTING A LOT OF DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
     //GOING OFF EDGE AT TIMES - fix values (related to this problem ^^^)
-    //DOING TOO MANY QUESTIONS
-    //Not calculating score
-    //axes circles in different spot as dot
-    //Make axes images?
 //-----------------------------------------------------------------------------------------------
 
 //Politicube Quiz
@@ -41,10 +37,9 @@ const resultsBtn = document.getElementById("results");
 
 //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
 var questionBank = questionList;
-
 var sessionQuestions = []; //Questions given to user
 var current = 0; //Current question number
-var numQs = questionBank.length - 1; //Number of total questions
+var numQs = questionBank.length; //Number of total questions
 
 //Track user's score
 var score = {
@@ -61,10 +56,11 @@ function pickNewQuestions() {
     var index;
 
     //Select questions in a random order, avoiding repeats
-    for (let i = 0; i <= numQs; i++) {
+    for (let i = 0; i < numQs; i++) {
         index = getRandomIndex();
 
-        for (let j = 0; j < sessionQuestions.length; j++) {
+        var len = sessionQuestions.length;
+        for (let j = 0; j < len; j++) {
             if (sessionQuestions[j] === questionBank[index]) {
                 console.log("Index " + index + " unsuccessful. Trying again.");
                 index = getRandomIndex();
@@ -116,15 +112,15 @@ function renderQuestion(qIndex) {
 
 //Change the score once a question is answered
 function adjust(answer) {
-    console.log("Answered question #" + (current + 1) + " with value " + answer);
     sessionQuestions[current].userVal = answer;
     console.log("Answered question #" + (current + 1) + " with value " + answer);
 
     //Render the next question
-    if (current < numQs) {
+    if (current < numQs-1) {
         nextQuestion();
     }
     else {
+        console.log('Quiz Complete!');
         calculateScore(); //Get the final score for the user
         resultsBtn.style.display = "block"; //Show the 'view results' button
     }
@@ -142,8 +138,7 @@ function nextQuestion() {
 
 //Return random index number between 0 and 99 (100 questions)
 function getRandomIndex() {
-    return Math.floor((Math.random() * 99));
-    return Math.floor((Math.random() * numQs));
+    return Math.floor((Math.random() * (numQs-1)));
 }
 
 //Run the quiz from the start with new questions
@@ -154,9 +149,8 @@ function startQuiz() {
     quiz.style.display = "block";
     previous.style.display = "block";
 
-    //Select first question, reset question counter
+    //Select first question
     pickNewQuestions();
-    current = 0;
     renderQuestion(0);
 }
 
@@ -166,10 +160,16 @@ function calculateScore() {
     for (let i = 0; i < numQs; i++) {
         q = sessionQuestions[i];
         //Adjust each axis based on response, round to two decimal places
-        score.cultural = (Math.round((score.cultural + (q.C * q.userVal)) * 100) / 100);
-        score.economic = (Math.round((score.economic + (q.E * q.userVal)) * 100) / 100);
-        score.authoritarian = (Math.round((score.authoritarian + (q.A * q.userVal)) * 100) / 100);
+        score.cultural = roundScore(score.cultural + (q.C * q.userVal));
+        score.economic = roundScore(score.economic + (q.E * q.userVal));
+        score.authoritarian = roundScore(score.authoritarian + (q.A * q.userVal));
     }
+}
+
+//Round the score to 3 digits
+function roundScore(val) {
+    const precision = 3;
+    return Number((val).toFixed(precision));
 }
 
 //Send the user to the results page
@@ -182,9 +182,13 @@ function skipToEnd() {
     start.style.display = "none";
     console.log("Generating random values");
 
-    score.cultural = ((Math.random() * 2) - 1);
-    score.economic = ((Math.random() * 2) - 1);
-    score.authoritarian = ((Math.random() * 2) - 1);
+    score.cultural = randomScore();
+    score.economic = randomScore();
+    score.authoritarian = randomScore();
+
+    function randomScore() {
+        return roundScore((Math.random() * 2.0) - 1.0);
+    }
 
     seeResults();
 }
