@@ -7,6 +7,8 @@
 //BUGS
     //GETTING SOME DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
     //GOING OFF EDGE AT TIMES - fix values (related to this problem ^^^)
+    //DOING TOO MANY QUESTIONS
+    //Not calculating score
     //axes circles in different spot as dot
     //Make axes images?
 //-----------------------------------------------------------------------------------------------
@@ -43,7 +45,6 @@ var questionBank = questionList;
 var sessionQuestions = []; //Questions given to user
 var current = 0; //Current question number
 var numQs = questionBank.length - 1; //Number of total questions
-start.addEventListener("click", startQuiz);
 
 //Track user's score
 var score = {
@@ -73,7 +74,19 @@ function pickNewQuestions() {
         sessionQuestions[i] = questionBank[index];
         sessionQuestions[i].userVal = 0.0; //Add a value to each object which keeps track of the question's score
     }
+    //checkDuplicates();
     console.log("Session questions selected!");
+}
+
+//TESTING
+function checkDuplicates() {
+    for (let i = 0; i < numQs; i++) {
+        for (let j = i + 1; j < numQs; j++) {
+            if (sessionQuestions[i].text === sessionQuestions[j].text) {
+                window.alert('DUPLICATE QUESTION: Q.' + i + ' same as Q.' + j);
+            }
+        }
+    }
 }
 
 //Show the next question
@@ -105,6 +118,7 @@ function renderQuestion(qIndex) {
 function adjust(answer) {
     console.log("Answered question #" + (current + 1) + " with value " + answer);
     sessionQuestions[current].userVal = answer;
+    console.log("Answered question #" + (current + 1) + " with value " + answer);
 
     //Render the next question
     if (current < numQs) {
@@ -129,6 +143,7 @@ function nextQuestion() {
 //Return random index number between 0 and 99 (100 questions)
 function getRandomIndex() {
     return Math.floor((Math.random() * 99));
+    return Math.floor((Math.random() * numQs));
 }
 
 //Run the quiz from the start with new questions
