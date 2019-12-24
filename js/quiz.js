@@ -119,7 +119,7 @@ function adjust(answer) {
     console.log("Answered question #" + (current + 1) + " with value " + answer);
 
     //Render the next question
-    if (current < numQs-1) {
+    if (current < (numQs-1)) {
         nextQuestion();
     }
     else {
@@ -129,14 +129,14 @@ function adjust(answer) {
     }
 }
 
-//Go to the previous question
-function previousQuestion() {
-    renderQuestion(--current);
-}
-
 //Go to the next question
 function nextQuestion() {
     renderQuestion(++current);
+}
+
+//Go to the previous question
+function previousQuestion() {
+    renderQuestion(--current);
 }
 
 //Return random index number between 0 and 99 (100 questions)
@@ -162,7 +162,7 @@ function calculateScore() {
     var q;
     for (let i = 0; i < numQs; i++) {
         q = sessionQuestions[i];
-        //Adjust each axis based on response, round to two decimal places
+        //Adjust each axis based on response
         score.cultural = roundScore(score.cultural + (q.C * q.userVal));
         score.economic = roundScore(score.economic + (q.E * q.userVal));
         score.authoritarian = roundScore(score.authoritarian + (q.A * q.userVal));
@@ -190,7 +190,7 @@ function skipToEnd() {
     score.authoritarian = randomScore();
 
     function randomScore() {
-        return roundScore((Math.random() * 2.0) - 1.0);
+        return roundScore((Math.random() * 2.0) - 1.0); //Between -1 and 1
     }
 
     seeResults();
