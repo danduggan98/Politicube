@@ -38,8 +38,8 @@ function showResults() {
 //Show the user's score for each axis individually
 function showAxes() {
     //Reveal everything
-    notice.style.display = "block";
-    axes.style.display = "block";
+    notice.style.display = "inline-block";
+    axes.style.display = "inline-block";
     console.log("Final user score -> Cultural: " + cVal + ", Economic: " + eVal + ", Authoritarian: " + aVal); //Display score for testing
 
     /*==================== 2D AXES ====================== */
