@@ -53,17 +53,18 @@ function pickNewQuestions() {
     console.log("Picking new questions");
 
     sessionQuestions = []; //Reset the current session
-    var index;
+    var index, len;
 
     //Select questions in a random order, avoiding repeats
     for (let i = 0; i < numQs; i++) {
         index = getRandomIndex();
 
-        var len = sessionQuestions.length;
+        len = sessionQuestions.length;
         for (let j = 0; j < len; j++) {
-            if (sessionQuestions[j] === questionBank[index]) {
+            if (sessionQuestions[j].text === questionBank[index].text) {
                 console.log("Index " + index + " unsuccessful. Trying again.");
                 index = getRandomIndex();
+                j = 0;
             }
         }
         console.log("Selected question " + index + " - placing in position " + i);
@@ -74,14 +75,14 @@ function pickNewQuestions() {
     console.log("Session questions selected!");
 }
 
-//TESTING
+//TESTING (Q.0 ALWAYS SEEMS TO END UP AS A DUPLICATE?????????????????????)
 function checkDuplicates() {
     var numDuplicates = 0;
     for (let i = 0; i < numQs; i++) {
         for (let j = i + 1; j < numQs; j++) {
             if (sessionQuestions[i].text === sessionQuestions[j].text) {
                 numDuplicates++;
-                //window.alert('DUPLICATE QUESTION: Q.' + i + ' same as Q.' + j);
+                window.alert('DUPLICATE QUESTION: Q.' + i + ' same as Q.' + j);
             }
         }
     }
