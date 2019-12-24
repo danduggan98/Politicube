@@ -68,21 +68,24 @@ function pickNewQuestions() {
         }
         console.log("Selected question " + index + " - placing in position " + i);
         sessionQuestions[i] = questionBank[index];
-        sessionQuestions[i].userVal = 0.0; //Add a value to each object which keeps track of the question's score
+        sessionQuestions[i].userVal = 0.0; //Add a value to each question which keeps track of its score
     }
-    //checkDuplicates();
+    checkDuplicates();
     console.log("Session questions selected!");
 }
 
 //TESTING
 function checkDuplicates() {
+    var numDuplicates = 0;
     for (let i = 0; i < numQs; i++) {
         for (let j = i + 1; j < numQs; j++) {
             if (sessionQuestions[i].text === sessionQuestions[j].text) {
-                window.alert('DUPLICATE QUESTION: Q.' + i + ' same as Q.' + j);
+                numDuplicates++;
+                //window.alert('DUPLICATE QUESTION: Q.' + i + ' same as Q.' + j);
             }
         }
     }
+    numDuplicates > 0 ? window.alert(numDuplicates + ' duplicates found') : window.alert('NO DUPLICATES! NICE!');
 }
 
 //Show the next question
@@ -168,7 +171,7 @@ function calculateScore() {
 
 //Round the score to 3 digits
 function roundScore(val) {
-    const precision = 3;
+    var precision = 3;
     return Number((val).toFixed(precision));
 }
 
