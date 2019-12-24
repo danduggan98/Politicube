@@ -125,7 +125,7 @@ function adjust(answer) {
     else {
         console.log('Quiz Complete!');
         calculateScore(); //Get the final score for the user
-        resultsBtn.style.display = "block"; //Show the 'view results' button
+        resultsBtn.style.display = "inline-block"; //Show the 'view results' button
     }
 }
 
@@ -148,9 +148,9 @@ function getRandomIndex() {
 function startQuiz() {
     //Display quiz
     start.style.display = "none";
-    restart.style.display = "none";
-    quiz.style.display = "block";
-    previous.style.display = "block";
+    restart.style.display = "inline-block";
+    quiz.style.display = "inline-block";
+    previous.style.display = "inline-block";
 
     //Select first question
     pickNewQuestions();
