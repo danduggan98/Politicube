@@ -21,10 +21,25 @@
         background-color: #f0f0f0;
         font-weight: bold;
     }
-
     /* When you click it */
     #start:active {
         background-color: lightgrey;
+    }
+
+/* Randomizer button */
+#randomize {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: yellow;
+}
+    /* When you mouse over it */
+    #randomize:hover {
+        border: 2px solid black;
+        font-weight: bold;
+        background-color: red;
     }
 
 /* Restart the quiz */
@@ -35,6 +50,7 @@
     cursor: pointer;
     padding: 5px;
     background-color: chartreuse;
+    box-sizing: border-box;
 }
     /* When you mouse over it */
     #restart:hover {
@@ -42,30 +58,8 @@
         background-color: #f0f0f0;
         font-weight: bold;
     }
-
     /* When you click it */
     #restart:active {
-        background-color: lightgrey;
-    }
-
-/* Go back to the last question */
-#previous {
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 5px;
-    background-color: aqua;
-}
-    /* When you mouse over it */
-    #previous:hover {
-        border: 2px solid black;
-        background-color: #f0f0f0;
-        font-weight: bold;
-    }
-
-    /* When you click it */
-    #previous:active {
         background-color: lightgrey;
     }
 
@@ -94,25 +88,27 @@
         background-color: #f0f0f0;
         font-weight: bold;
     }
-
     /* When you click it */
     .choice:active {
         background-color: lightgrey;
     }
 
-/* Randomizer button */
-#randomize {
+/* Go back to the last question */
+#previous {
     display: inline-block;
     border: 1px solid black;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
-    padding: 10px;
-    background-color: yellow;
+    padding: 5px;
+    background-color: aqua;
 }
-
     /* When you mouse over it */
-    #randomize:hover {
+    #previous:hover {
         border: 2px solid black;
+        background-color: #f0f0f0;
         font-weight: bold;
-        background-color: red;
+    }
+    /* When you click it */
+    #previous:active {
+        background-color: lightgrey;
     }
