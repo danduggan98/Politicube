@@ -6,7 +6,6 @@
     //SMOOTH score point on cube
     //
 //BUGS
-    //GOING OFF EDGE - stacking multiple inputs given to single question (ADDS 1.0 to each axis every time an extra submission is made)
 //----------------------------------------------------------------------------------------------------------
 
 //Politicube Quiz
@@ -111,7 +110,6 @@ function adjust(answer) {
     }
     else {
         console.log('Quiz Complete!');
-        calculateScore(); //Get the final score
         resultsBtn.style.display = "inline-block"; //Show the 'view results' button
     }
 }
@@ -131,7 +129,7 @@ function getRandomIndex() {
     return Math.floor(Math.random() * numQs);
 }
 
-//Add up the scores for each question to get the user score
+//Add up the scores for each question
 function calculateScore() {
     var q;
     for (let i = 0; i < numQs; i++) {
@@ -159,13 +157,12 @@ function skipToEnd() {
     start.style.display = "none";
     console.log("Generating random values");
 
-    score.cultural = randomScore();
-    score.economic = randomScore();
-    score.authoritarian = randomScore();
-
     function randomScore() {
         return roundScore((Math.random() * 2.0) - 1.0); //Between -1 and 1
     }
 
+    score.cultural = randomScore();
+    score.economic = randomScore();
+    score.authoritarian = randomScore();
     seeResults();
 }
