@@ -1,13 +1,13 @@
 //TO-DO
     //Fine-tune ideology labels - make them more accurate/in-depth
-    //THEN show them people/authors related to their ideology, link to books of their relavant works
+    //THEN show them people/authors related to their ideology, link to books of their relevant works
+    //Create an example cube which shows a bunch of important figures side by side - put on "The Cube" page
     //Test out alternate question strat (-1 for right wing Q)
     //SMOOTH score point on cube
     //
 //BUGS
-    //GETTING A LOT OF DUPLICATES FROM PICKNEWQUESTIONS() !!!!!!!!!!!
-    //GOING OFF EDGE AT TIMES - fix values (related to this problem ^^^)
-//-----------------------------------------------------------------------------------------------
+    //GOING OFF EDGE - stacking multiple inputs given to single question (ADDS 1.0 to each axis every time an extra submission is made)
+//----------------------------------------------------------------------------------------------------------
 
 //Politicube Quiz
 //33 questions per axis - each question relates to one category, answer pushes the user's score left or right for that axis
@@ -35,10 +35,9 @@ const choiceA = document.getElementById("A");
 const choiceD = document.getElementById("D");
 const resultsBtn = document.getElementById("results");
 
-//Initialize the question bank (100 total -> 33 in each category + 1 neutral)
-var questionBank = questionList;
-var sessionQuestions = []; //Questions given to user
-var current = 0; //Current question number
+var questionBank = questionList; //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
+var sessionQuestions = []; //Unique, randomly ordered set of questions for this session
+var current = 0; //Current question index
 var numQs = questionBank.length; //Number of total questions
 
 //Track user's score
@@ -48,55 +47,43 @@ var score = {
     authoritarian: 0.0
 };
 
-//Selects a new, random set of questions for this quiz session
-function pickNewQuestions() {
-    console.log("Picking new questions");
+//Run the quiz from the start with new questions
+function startQuiz() {
+    //Display quiz, hide start button
+    start.style.display = "none";
+    restart.style.display = "inline-block";
+    quiz.style.display = "inline-block";
+    previous.style.display = "inline-block";
 
-    sessionQuestions = []; //Reset the current session
-    var index, len;
+    //Select new questions, start at the first one
+    pickNewQuestions();
+    renderQuestion(0);
+    console.log('Starting Quiz!');
+}
+
+//Select a new, random set of questions for this quiz session
+function pickNewQuestions() {
+    sessionQuestions = []; //Reset the current session if one exists
+    var index;
 
     //Select questions in a random order, avoiding repeats
     for (let i = 0; i < numQs; i++) {
         index = getRandomIndex();
 
-        len = sessionQuestions.length;
-        for (let j = 0; j < len; j++) {
-            if (sessionQuestions[j].text === questionBank[index].text) {
-                console.log("Index " + index + " unsuccessful. Trying again.");
-                index = getRandomIndex();
-                j = 0;
-            }
+        while (sessionQuestions.includes(questionBank[index])) {
+            index = getRandomIndex();
         }
-        console.log("Selected question " + index + " - placing in position " + i);
         sessionQuestions[i] = questionBank[index];
         sessionQuestions[i].userVal = 0.0; //Add a value to each question which keeps track of its score
     }
-    checkDuplicates();
-    console.log("Session questions selected!");
 }
 
-//TESTING (Q.0 ALWAYS SEEMS TO END UP AS A DUPLICATE?????????????????????)
-function checkDuplicates() {
-    var numDuplicates = 0;
-    for (let i = 0; i < numQs; i++) {
-        for (let j = i + 1; j < numQs; j++) {
-            if (sessionQuestions[i].text === sessionQuestions[j].text) {
-                numDuplicates++;
-                window.alert('DUPLICATE QUESTION: Q.' + i + ' same as Q.' + j);
-            }
-        }
-    }
-    numDuplicates > 0 ? window.alert(numDuplicates + ' duplicates found') : window.alert('NO DUPLICATES! NICE!');
-}
-
-//Show the next question
+//Display a particular question
 function renderQuestion(qIndex) {
-    //Stop the user from trying to access questions below zero
-    if (qIndex < 0) qIndex = 0;
+    if (qIndex < 0) qIndex = 0; //Keep them from going below question zero with the 'previous' button
 
-    //Grab and display a question
+    //Display a question
     current = qIndex;
-    console.log("Showing question " + (current + 1));
     question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
 
     //Change text for neutral question (first one in question bank)
@@ -114,10 +101,9 @@ function renderQuestion(qIndex) {
     }
 }
 
-//Change the score once a question is answered
+//Change a question's score once it's answered
 function adjust(answer) {
     sessionQuestions[current].userVal = answer;
-    console.log("Answered question #" + (current + 1) + " with value " + answer);
 
     //Render the next question
     if (current < (numQs-1)) {
@@ -125,7 +111,7 @@ function adjust(answer) {
     }
     else {
         console.log('Quiz Complete!');
-        calculateScore(); //Get the final score for the user
+        calculateScore(); //Get the final score
         resultsBtn.style.display = "inline-block"; //Show the 'view results' button
     }
 }
@@ -142,20 +128,7 @@ function previousQuestion() {
 
 //Return random index number between 0 and 99 (100 questions)
 function getRandomIndex() {
-    return Math.floor((Math.random() * (numQs-1)));
-}
-
-//Run the quiz from the start with new questions
-function startQuiz() {
-    //Display quiz
-    start.style.display = "none";
-    restart.style.display = "inline-block";
-    quiz.style.display = "inline-block";
-    previous.style.display = "inline-block";
-
-    //Select first question
-    pickNewQuestions();
-    renderQuestion(0);
+    return Math.floor(Math.random() * numQs);
 }
 
 //Add up the scores for each question to get the user score
