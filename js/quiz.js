@@ -2,7 +2,7 @@
     //Fine-tune ideology labels - make them more accurate/in-depth
     //THEN show them people/authors related to their ideology, link to books of their relevant works
     //Create an example cube which shows a bunch of important figures side by side - put on "The Cube" page
-    //Test out alternate question strat (-1 for right wing Q)
+    //Test out alternate question strat (-1 for right wing Q, +1 (affirmative) for left wing)
     //SMOOTH score point on cube
     //
 //BUGS
