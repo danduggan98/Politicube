@@ -25,6 +25,11 @@ app.get('/results', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'results.html');
 });
 
+//Info about the cube + important people
+app.get('/cube', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'cube.html');
+});
+
 //Handle 404 errors
 app.use((req, res) => {
     res.status(404).send('Error 404 - Page Not Found');
