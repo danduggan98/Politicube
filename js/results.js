@@ -1,7 +1,5 @@
 //Display results, animation, and individual axes, plus name their ideology
 
-//Affirmative -> right wing = -1, affirmative -> left wing = +1 - TRY THIS OUT
-
 //Grab HTML elements
 const canvas = document.getElementById('animation');
 const xCanvas = document.getElementById("xAxis");
