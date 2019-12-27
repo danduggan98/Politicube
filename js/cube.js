@@ -1,5 +1,8 @@
 // Show the cube
 
+//Add points for important figures
+//Include information about each quadrant and its thinkers
+
 //Grab the HTML element
 const canvas = document.getElementById('animation');
 
@@ -22,10 +25,41 @@ function displayCube() {
         //Axes (x, z, y) #24-29
         -1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0,
 
-        //User score #30
-        0, 0, 0,
+        //Important people scores - #30-31
+        0, 0, 0, //Hitler
+        0.5, 0, 0, //Stalin
+        //Pol Pot
+        //Marx
+        //Lenin
+        //Mussolini
+        //Pinochet
+        //Jefferson
+        //Jackson
+        //Hamilton
+        //Robespierre
+        //Mao
+        //Gandhi
+        //Bismarck
+        //Hugo Chavez
+        //Fidel Castro
+        //Thatcher
+        //Rand
+        //Orwell
+        //Putin
+        //Milton Friedman
+        //Adam Smith
+        //FDR
+        //JFK
+        //Reagan
+        //Ron Paul
+        //Obama
+        //Trump
+        //Mugabe
+        //Jinping
+        //Corbyn
+        //Sanders
 
-        //Axis arrows #31-42
+        //Axis arrows #32-43
         -0.95, 0.05, 0, -0.95, -0.05, 0,
         0.95, 0.05, 0, 0.95, -0.05, 0,
         0, 0.05, -0.95, 0, -0.05, -0.95,
@@ -46,8 +80,9 @@ function displayCube() {
         //Axes (Golden Yellow <-> Blue (X), Cyan <-> Red (Z), Pink <-> Green (Y))
         1, 0.8745, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0,
 
-        //User score (black)
+        //Important people scores
         0, 1, 0,
+        1, 1, 0,
 
         //Axis arrows
         1, 0.8745, 0, 1, 0.8745, 0,
@@ -70,12 +105,12 @@ function displayCube() {
         24, 25, 26, 27, 28, 29,
 
         //Axis arrows
-        24, 31, 24, 32,
-        25, 33, 25, 34,
-        27, 35, 27, 36,
-        26, 37, 26, 38,
-        29, 39, 29, 40,
-        28, 41, 28, 42
+        24, 32, 24, 33,
+        25, 34, 25, 35,
+        27, 36, 27, 37,
+        26, 38, 26, 39,
+        29, 40, 29, 41,
+        28, 42, 28, 43
     ];
 
     // Create and store data into vertex buffer
@@ -272,9 +307,9 @@ function displayCube() {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
         gl.drawElements(gl.LINES, indices.length, gl.UNSIGNED_SHORT, 0);
 
-        //Show the user's score
+        //Show the scores for each important person
         gl.drawArrays(gl.POINTS, 30, 1);
-        gl.drawArrays(gl.POINTS, 30, 1);
+        gl.drawArrays(gl.POINTS, 31, 1);
 
         window.requestAnimationFrame(animate);
     }
