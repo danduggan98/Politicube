@@ -25,6 +25,11 @@ app.get('/results', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'results.html');
 });
 
+//FAQ page
+app.get('/FAQ', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'FAQ.html');
+});
+
 //Info about the cube + important people
 app.get('/cube', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'cube.html');
