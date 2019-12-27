@@ -35,6 +35,11 @@ app.get('/cube', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'cube.html');
 });
 
+//Info about the ideologies
+app.get('/ideologies', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'ideologies.html');
+});
+
 //Handle 404 errors
 app.use((req, res) => {
     res.status(404).send('Error 404 - Page Not Found');
