@@ -112,3 +112,28 @@
     #previous:active {
         background-color: lightgrey;
     }
+
+/* Go to the next question */
+#next {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    background-color: aqua;
+}
+    /* When you mouse over it */
+    #next:hover {
+        border: 2px solid black;
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+    /* When you click it */
+    #next:active {
+        background-color: lightgrey;
+    }
+
+/* Tells the user if they have unanswered questions */
+#alert {
+    display: inline-block;
+}
