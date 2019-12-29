@@ -22,9 +22,11 @@
                     <div class="choice" id="D" onclick="adjust(Disagree)"></div>
                     <div class="choice" id="SD" onclick="adjust(StrongDisagree)"></div>
                 </div><br>
-                <div id="previous" style="display:none" onclick="previousQuestion()">Previous</div>
+                <div id="previous" onclick="previousQuestion()">Previous</div>
+                <div id="next" onclick="nextQuestion()">Next</div>
+                <div id="alert"></div>
             </div>
-        </div> <br>
+        </div><br>
         <button id="results" type="button" onclick="calculateScore();seeResults();" style="display:none">View Results</button>
     </div>
     <script type="text/javascript" src="js/questionBank.js"></script>
