@@ -55,11 +55,12 @@ function startQuiz() {
     restart.style.display = "inline-block";
     quiz.style.display = "inline-block";
 
-    //Select new questions, start at the first one
+    //Select new questions, start at the beginning
+    console.log('Starting Quiz!');
+    alert.innerHTML = ' ';
     pickNewQuestions();
     current = 0;
     renderQuestion();
-    console.log('Starting Quiz!');
 }
 
 //Select a new, random set of questions for this quiz session
@@ -82,7 +83,7 @@ function pickNewQuestions() {
 //Display a particular question
 function renderQuestion() {
 
-    //Display a question
+    //Change the question text
     question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
 
     //Change text for neutral question (first one in question bank)
@@ -116,20 +117,23 @@ function nextQuestion() {
         var finished = quizComplete();
         if (finished.length === 0) {
             console.log('Quiz Complete!');
+            alert.innerHTML = 'Quiz Complete!';
             resultsBtn.style.display = 'inline-block'; //Show the 'view results' button
         }
         else {
-            var remaining;
+            var remaining = '';
+            var num;
             for (let i = 0; i < finished.length; i++) {
+                num = finished[i];
                 if (i === 0)
-                    remaining += i;
+                    remaining += num;
                 else if (i < finished.length)
-                    remaining += ', ' + i;
+                    remaining += ', ' + num;
                 else
-                    remaining += ', and ' + i;
+                    remaining += ', and ' + num;
             }
-            var alert = 'Please answer questions ' + remaining;
-            alert.innerHTML = alert;
+            var msg = 'Please answer questions ' + remaining;
+            alert.innerHTML = msg;
         }
     }
 }
@@ -147,7 +151,7 @@ function quizComplete() {
     var unanswered = [];
     for (let i = 0; i < numQs; i++) {
         if (sessionQuestions[i].userVal === 0.0) {
-            unanswered.push(i);
+            unanswered.push(i+1);
         }
     }
     return unanswered;
