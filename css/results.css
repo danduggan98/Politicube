@@ -1,0 +1,158 @@
+﻿/* Message about how to rotate the cube */
+#notice {
+}
+
+/* The user's ideology*/
+#ideology {
+}
+
+/* Includes the animation and axes*/
+#cube{
+}
+
+/* The Cube (Praise be unto Him) */
+#animation {
+    margin: 0 auto;
+    position: absolute;
+    left: 75px;
+}
+
+/* Axes */
+#axes {
+    position: relative;
+    width: 400px;
+    left: 850px;
+    top: 150px;
+}
+
+/* X-Axis Information */
+#xInfo {
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+/* X-axis bar (Progressive vs. Trad) */
+#xAxis {
+    position: absolute;
+    border: 1px solid black;
+    left: 0px;
+    top: 0px;
+}
+
+/* Progressivist Label */
+#ProgressivistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: black;
+    left: 5px;
+    top: 56px;
+}
+
+/*Traditionalist Label */
+#TraditionalistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    right: 4px;
+    top: 3px;
+}
+
+/* Description under X-Axis */
+#xCaption {
+    font-size: 16px;
+    line-height: 1.2;
+    position: absolute;
+    left: 0.5px;
+    top: 85px;
+}
+
+/* Y-Axis Information */
+#yInfo {
+    position: relative;
+    left: 0px;
+    top: 150px;
+}
+
+/* Y-axis bar (Socialist vs. Capitalist) */
+#yAxis {
+    position: absolute;
+    border: 1px solid black;
+    left: 0px;
+    top: 0px;
+}
+
+/* Socialist Label */
+#SocialistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: black;
+    left: 5px;
+    top: 56px;
+}
+
+/* Capitalist Label */
+#CapitalistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    right: 4px;
+    top: 3px;
+}
+
+/* Description under Y-axis */
+#yCaption {
+    font-size: 16px;
+    line-height: 1.2;
+    position: absolute;
+    left: 0.5px;
+    top: 85px;
+}
+
+/* Z-Axis Information */
+#zInfo {
+    position: relative;
+    left: 0px;
+    top: 300px;
+}
+
+/* Z-axis bar (Anarchism vs Authoritarianism) */
+#zAxis {
+    position: absolute;
+    border: 1px solid black;
+    left: 0px;
+    top: 0px;
+}
+
+/* Anarchist Label */
+#AnarchistLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: black;
+    left: 5px;
+    top: 56px;
+}
+
+/* Authoritarian Label */
+#AuthoritarianLabel {
+    position: absolute;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    right: 4px;
+    top: 3px;
+}
+
+/* Description under Z-axis */
+#zCaption {
+    font-size: 16px;
+    line-height: 1.2;
+    position: absolute;
+    left: 0.5px;
+    top: 85px;
+}
