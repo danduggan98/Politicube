@@ -26,6 +26,8 @@ const Disagree = 0.014705;
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const previous = document.getElementById("previous");
+const next = document.getElementById("next");
+const alert = document.getElementById("alert");
 const restart = document.getElementById("restart");
 const question = document.getElementById("question");
 const choiceSA = document.getElementById("SA");
@@ -36,7 +38,7 @@ const resultsBtn = document.getElementById("results");
 
 var questionBank = questionList; //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
 var sessionQuestions = []; //Unique, randomly ordered set of questions for this session
-var current = 0; //Current question index
+var current; //Current question index
 var numQs = questionBank.length; //Number of total questions
 
 //Track user's score
@@ -52,11 +54,11 @@ function startQuiz() {
     start.style.display = "none";
     restart.style.display = "inline-block";
     quiz.style.display = "inline-block";
-    previous.style.display = "inline-block";
 
     //Select new questions, start at the first one
     pickNewQuestions();
-    renderQuestion(0);
+    current = 0;
+    renderQuestion();
     console.log('Starting Quiz!');
 }
 
@@ -78,11 +80,9 @@ function pickNewQuestions() {
 }
 
 //Display a particular question
-function renderQuestion(qIndex) {
-    if (qIndex < 0) qIndex = 0; //Keep them from going below question zero with the 'previous' button
+function renderQuestion() {
 
     //Display a question
-    current = qIndex;
     question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
 
     //Change text for neutral question (first one in question bank)
@@ -103,25 +103,54 @@ function renderQuestion(qIndex) {
 //Change a question's score once it's answered
 function adjust(answer) {
     sessionQuestions[current].userVal = answer;
-
-    //Render the next question
-    if (current < (numQs-1)) {
-        nextQuestion();
-    }
-    else {
-        console.log('Quiz Complete!');
-        resultsBtn.style.display = "inline-block"; //Show the 'view results' button
-    }
+    nextQuestion();
 }
 
 //Go to the next question
 function nextQuestion() {
-    renderQuestion(++current);
+    if (current < (numQs - 1)) {
+        current++;
+        renderQuestion();
+    }
+    else {
+        var finished = quizComplete();
+        if (finished.length === 0) {
+            console.log('Quiz Complete!');
+            resultsBtn.style.display = 'inline-block'; //Show the 'view results' button
+        }
+        else {
+            var remaining;
+            for (let i = 0; i < finished.length; i++) {
+                if (i === 0)
+                    remaining += i;
+                else if (i < finished.length)
+                    remaining += ', ' + i;
+                else
+                    remaining += ', and ' + i;
+            }
+            var alert = 'Please answer questions ' + remaining;
+            alert.innerHTML = alert;
+        }
+    }
 }
 
 //Go to the previous question
 function previousQuestion() {
-    renderQuestion(--current);
+    if (current > 0) {
+        current--;
+        renderQuestion();
+    }
+}
+
+//Tell the user if they have any unanswered questions
+function quizComplete() {
+    var unanswered = [];
+    for (let i = 0; i < numQs; i++) {
+        if (sessionQuestions[i].userVal === 0.0) {
+            unanswered.push(i);
+        }
+    }
+    return unanswered;
 }
 
 //Return random index number between 0 and 99 (100 questions)
