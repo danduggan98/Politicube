@@ -59,14 +59,17 @@ function startQuiz() {
     //Select new questions, start at the beginning
     console.log('Starting Quiz!');
     alert.innerHTML = ' ';
-    pickNewQuestions();
     current = 0;
+
+    pickNewQuestions();
     renderQuestion();
 }
 
 //Select a new, random set of questions for this quiz session
 function pickNewQuestions() {
-    sessionQuestions = []; //Reset the current session if one exists
+    //Reset the current session if one exists
+    sessionQuestions = [];
+    answered = [];
     var index;
 
     //Select questions in a random order, avoiding repeats
@@ -83,7 +86,6 @@ function pickNewQuestions() {
 
 //Display a particular question
 function renderQuestion() {
-
     //Change the question text
     question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
 
@@ -129,7 +131,7 @@ function nextQuestion() {
                     num = answered[i] + 1;
                     if (i === 0)
                         remaining += num;
-                    else if (i < answered.length)
+                    else if (i < numQs)
                         remaining += ', ' + num;
                     else
                         remaining += ', and ' + num;
