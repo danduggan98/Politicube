@@ -38,6 +38,7 @@ const resultsBtn = document.getElementById("results");
 
 var questionBank = questionList; //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
 var sessionQuestions = []; //Unique, randomly ordered set of questions for this session
+var answered = []; //Finished questions
 var current; //Current question index
 var numQs = questionBank.length; //Number of total questions
 
@@ -104,6 +105,7 @@ function renderQuestion() {
 //Change a question's score once it's answered
 function adjust(answer) {
     sessionQuestions[current].userVal = answer;
+    answered.push(current + 1); //Add it to the list of finished questions
     nextQuestion();
 }
 
@@ -114,26 +116,26 @@ function nextQuestion() {
         renderQuestion();
     }
     else {
-        var finished = quizComplete();
-        if (finished.length === 0) {
+        if (answered.length === numQs) {
             console.log('Quiz Complete!');
             alert.innerHTML = 'Quiz Complete!';
             resultsBtn.style.display = 'inline-block'; //Show the 'view results' button
         }
         else {
             var remaining = '';
-            var num;
-            for (let i = 0; i < finished.length; i++) {
-                num = finished[i];
-                if (i === 0)
-                    remaining += num;
-                else if (i < finished.length)
-                    remaining += ', ' + num;
-                else
-                    remaining += ', and ' + num;
+            var plural = ((numQs - answered.length) === 1) ? ' ' : 's '
+            for (let i = 0; i < numQs; i++) {
+                if (!(answered.includes(i + 1))) {
+                    num = answered[i] + 1;
+                    if (i === 0)
+                        remaining += num;
+                    else if (i < answered.length)
+                        remaining += ', ' + num;
+                    else
+                        remaining += ', and ' + num;
+                }
             }
-            var msg = 'Please answer questions ' + remaining;
-            alert.innerHTML = msg;
+            alert.innerHTML = 'Please answer question' + plural + remaining;
         }
     }
 }
@@ -144,17 +146,6 @@ function previousQuestion() {
         current--;
         renderQuestion();
     }
-}
-
-//Tell the user if they have any unanswered questions
-function quizComplete() {
-    var unanswered = [];
-    for (let i = 0; i < numQs; i++) {
-        if (sessionQuestions[i].userVal === 0.0) {
-            unanswered.push(i+1);
-        }
-    }
-    return unanswered;
 }
 
 //Return random index number between 0 and 99 (100 questions)
