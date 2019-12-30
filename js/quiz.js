@@ -42,6 +42,7 @@ var questionBank = questionList; //Initialize the question bank (100 total -> 33
 var sessionQuestions = []; //Unique, randomly ordered set of questions for this session
 var current; //Current question index
 var numQs = questionBank.length; //Number of total questions
+var listRevealed = false;
 
 //Track user's score
 var score = {
@@ -109,6 +110,9 @@ function renderQuestion() {
 //Change a question's score once it's answered
 function adjust(answer) {
     sessionQuestions[current].userVal = answer;
+    if (listRevealed) {
+        getRemaining();
+    }
     nextQuestion();
 }
 
@@ -122,6 +126,7 @@ function nextQuestion() {
     //Once the last question is reached, see if any are unanswered
     else {
         getRemaining();
+        listRevealed = true;
     }
 }
 
