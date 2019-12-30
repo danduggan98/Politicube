@@ -6,6 +6,8 @@
     //SMOOTH score point on cube
     //
 //BUGS
+    //'View results' button should pop up once all questions are answered, regardless of where they are at the time
+    //When an unfinished question is completed it should disappear from the list
 //----------------------------------------------------------------------------------------------------------
 
 //Politicube Quiz
