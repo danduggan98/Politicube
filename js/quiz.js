@@ -38,7 +38,6 @@ const resultsBtn = document.getElementById("results");
 
 var questionBank = questionList; //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
 var sessionQuestions = []; //Unique, randomly ordered set of questions for this session
-var answered = []; //Finished questions
 var current; //Current question index
 var numQs = questionBank.length; //Number of total questions
 
@@ -71,7 +70,6 @@ function startQuiz() {
 function pickNewQuestions() {
     //Reset the current session if one exists
     sessionQuestions = [];
-    answered = [];
     var index;
 
     //Select questions in a random order, avoiding repeats
@@ -109,9 +107,6 @@ function renderQuestion() {
 //Change a question's score once it's answered
 function adjust(answer) {
     sessionQuestions[current].userVal = answer;
-    if (!answered.includes(current)) {
-        answered.push(current); //Add it to the list of finished questions
-    }
     nextQuestion();
 }
 
@@ -122,30 +117,47 @@ function nextQuestion() {
         current++;
         renderQuestion();
     }
-    //Once the last question is reached
+    //Once the last question is reached, see if any are unanswered
     else {
-        //If all questions are completed, show the 'view results' button
-        if (answered.length === numQs) {
-            console.log('Quiz Complete!');
-            alert.innerHTML = 'Quiz Complete!';
-            resultsBtn.style.display = 'inline-block';
+        getRemaining();
+    }
+}
+
+//Find all incomplete questions
+function getRemaining() {
+    var remaining = [];
+    var msg = '';
+    var val;
+
+    //See which are unfinished
+    for (let i = 0; i < numQs; i++) {
+        if (sessionQuestions[i].userVal === 0.0) {
+            remaining.push(i);
         }
-        //Tell the user which questions remain unanswered
-        else {
-            var remaining = '';
-            var plural = ((numQs - answered.length) === 1) ? ' ' : 's ';
-            for (let i = 0; i < numQs; i++) {
-                if (!(answered.includes(i))) {
-                    if (i === 0) //NOT JUST AT POSITION 0, BUT THE FIRST ONE IN THE LIST
-                        remaining += (i+1);
-                    else if (i < (numQs - 1))
-                        remaining += ', ' + (i+1);
-                    else //NOT JUST POSITION(numqs-1) - JUST THE LAST ONE IN THE LIST
-                        remaining += ', and ' + (i+1);
-                }
-            }
-            alert.innerHTML = 'Please answer question' + plural + remaining;
+    }
+    var len = remaining.length;
+    var plural = ((numQs - len) === 1) ? ' ' : 's ';
+
+    //If all questions are completed, show the 'view results' button
+    if (len === 0) {
+        console.log('Quiz Complete!');
+        alert.innerHTML = 'Quiz Complete!';
+        resultsBtn.style.display = 'inline-block';
+    }
+    //Put the unfinished question numbers in a formatted list
+    else {    
+        for (let j = 0; j < len; j++) {
+            val = (remaining[j] + 1);
+            if (j === 0)
+                msg += val;
+            else if (j < (len - 1))
+                msg += ', ' + val;
+            else if (len === 2)
+                msg += ' and ' + val
+            else
+                msg += ', and ' + val;
         }
+        alert.innerHTML = 'Please answer question' + plural + msg; //Change the alert text
     }
 }
 
