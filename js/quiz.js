@@ -51,16 +51,18 @@ var score = {
 
 //Run the quiz from the start with new questions
 function startQuiz() {
-    //Display quiz, hide start button
+    //Display quiz, hide start button and results button
     start.style.display = "none";
     restart.style.display = "inline-block";
     quiz.style.display = "inline-block";
+    resultsBtn.style.display = "none";
 
-    //Select new questions, start at the beginning
+    //Start at the beginning
     console.log('Starting Quiz!');
     alert.innerHTML = ' ';
     current = 0;
 
+    //Select new questions
     pickNewQuestions();
     renderQuestion();
 }
@@ -107,34 +109,39 @@ function renderQuestion() {
 //Change a question's score once it's answered
 function adjust(answer) {
     sessionQuestions[current].userVal = answer;
-    answered.push(current + 1); //Add it to the list of finished questions
+    if (!answered.includes(current)) {
+        answered.push(current); //Add it to the list of finished questions
+    }
     nextQuestion();
 }
 
 //Go to the next question
 function nextQuestion() {
+    //If questions remain, go the next one
     if (current < (numQs - 1)) {
         current++;
         renderQuestion();
     }
+    //Once the last question is reached
     else {
+        //If all questions are completed, show the 'view results' button
         if (answered.length === numQs) {
             console.log('Quiz Complete!');
             alert.innerHTML = 'Quiz Complete!';
-            resultsBtn.style.display = 'inline-block'; //Show the 'view results' button
+            resultsBtn.style.display = 'inline-block';
         }
+        //Tell the user which questions remain unanswered
         else {
             var remaining = '';
-            var plural = ((numQs - answered.length) === 1) ? ' ' : 's '
+            var plural = ((numQs - answered.length) === 1) ? ' ' : 's ';
             for (let i = 0; i < numQs; i++) {
-                if (!(answered.includes(i + 1))) {
-                    num = answered[i] + 1;
-                    if (i === 0)
-                        remaining += num;
-                    else if (i < numQs)
-                        remaining += ', ' + num;
-                    else
-                        remaining += ', and ' + num;
+                if (!(answered.includes(i))) {
+                    if (i === 0) //NOT JUST AT POSITION 0, BUT THE FIRST ONE IN THE LIST
+                        remaining += (i+1);
+                    else if (i < (numQs - 1))
+                        remaining += ', ' + (i+1);
+                    else //NOT JUST POSITION(numqs-1) - JUST THE LAST ONE IN THE LIST
+                        remaining += ', and ' + (i+1);
                 }
             }
             alert.innerHTML = 'Please answer question' + plural + remaining;
