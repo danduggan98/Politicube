@@ -1,10 +1,6 @@
 ﻿/* Limit Width */
-#wrap {
+#quizWrap {
     max-width: 1920px;
-}
-
-/* Space containing the quiz */
-#container {
 }
 
 /* "Start Quiz" Button */
