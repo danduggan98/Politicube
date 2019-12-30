@@ -52,9 +52,8 @@ var score = {
 //Run the quiz from the start with new questions
 function startQuiz() {
     //Display quiz, hide start button and results button
-    start.style.display = "none";
-    restart.style.display = "inline-block";
     quiz.style.display = "inline-block";
+    start.style.display = "none";
     resultsBtn.style.display = "none";
 
     //Start at the beginning
@@ -204,13 +203,12 @@ function seeResults() {
 
 //End it all (For testing and to minimize headaches)
 function skipToEnd() {
-    start.style.display = "none";
-    console.log("Generating random values");
-
+    
     function randomScore() {
         return roundScore((Math.random() * 2.0) - 1.0); //Between -1 and 1
     }
 
+    console.log("Generating random values");
     score.cultural = randomScore();
     score.economic = randomScore();
     score.authoritarian = randomScore();
