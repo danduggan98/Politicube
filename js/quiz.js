@@ -136,7 +136,7 @@ function getRemaining() {
         }
     }
     var len = remaining.length;
-    var plural = ((numQs - len) === 1) ? ' ' : 's ';
+    var plural = (len < 2) ? ' ' : 's ';
 
     //If all questions are completed, show the 'view results' button
     if (len === 0) {
