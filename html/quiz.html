@@ -9,23 +9,21 @@
     <div id="nav_bar">
 
     </div>
-    <div id="wrap">
-        <div id="container">
-            <div id="start" onclick="startQuiz()">Start Quiz</div>
-            <div id="randomize" onclick="skipToEnd()">Randomize</div> <!-- JUST FOR TESTING -->
-            <div id="restart" style="display:none" onclick="startQuiz()">Restart</div><br>
-            <div id="quiz" style="display:none">
-                <div id="question"></div>
-                <div id="choices">
-                    <div class="choice" id="SA" onclick="adjust(StrongAgree)"></div>
-                    <div class="choice" id="A" onclick="adjust(Agree)"></div>
-                    <div class="choice" id="D" onclick="adjust(Disagree)"></div>
-                    <div class="choice" id="SD" onclick="adjust(StrongDisagree)"></div>
-                </div><br>
-                <div id="previous" onclick="previousQuestion()">Previous</div>
-                <div id="next" onclick="nextQuestion()">Next</div><br><br>
-                <div id="alert"></div>
-            </div>
+    <div id="start" onclick="startQuiz()">Start Quiz</div>
+    <div id="randomize" onclick="skipToEnd()">Randomize</div> <!-- JUST FOR TESTING -->
+    <div id="quizWrap">
+        <div id="quiz" style="display:none">
+            <div id="restart" onclick="startQuiz()">Restart</div><br>
+            <div id="question"></div>
+            <div id="choices">
+                <div class="choice" id="SA" onclick="adjust(StrongAgree)"></div>
+                <div class="choice" id="A" onclick="adjust(Agree)"></div>
+                <div class="choice" id="D" onclick="adjust(Disagree)"></div>
+                <div class="choice" id="SD" onclick="adjust(StrongDisagree)"></div>
+            </div><br>
+            <div id="previous" onclick="previousQuestion()">Previous</div>
+            <div id="next" onclick="nextQuestion()">Next</div><br><br>
+            <div id="alert"></div>
         </div><br>
         <button id="results" type="button" onclick="calculateScore();seeResults();" style="display:none">View Results</button>
     </div>
