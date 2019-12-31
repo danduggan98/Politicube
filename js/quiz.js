@@ -25,11 +25,7 @@ const Disagree = 0.014705;
 //Grab HTML elements
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
-const previous = document.getElementById("previous");
-const next = document.getElementById("next");
 const alert = document.getElementById("alert");
-const restart = document.getElementById("restart");
-const question = document.getElementById("question");
 const choiceSA = document.getElementById("SA");
 const choiceSD = document.getElementById("SD");
 const choiceA = document.getElementById("A");
