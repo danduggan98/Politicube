@@ -36,11 +36,11 @@ const choiceA = document.getElementById("A");
 const choiceD = document.getElementById("D");
 const resultsBtn = document.getElementById("results");
 
-var questionBank = questionList; //Initialize the question bank (100 total -> 33 in each category + 1 neutral)
+var questionBank = questionList; //Initialize the question bank
+var numQs = questionBank.length; //Number of total questions (100)
 var sessionQuestions = []; //Unique, randomly ordered set of questions for this session
 var current; //Current question index
-var numQs = questionBank.length; //Number of total questions
-var listRevealed = false;
+var listRevealed; //Whether they can see which questions are unanswered
 
 //Track user's score
 var score = {
@@ -49,17 +49,19 @@ var score = {
     authoritarian: 0.0
 };
 
-//Run the quiz from the start with new questions
+//Begin the quiz
 function startQuiz() {
+
     //Display quiz, hide start button and results button
     quiz.style.display = "inline-block";
     start.style.display = "none";
     resultsBtn.style.display = "none";
 
-    //Start at the beginning
+    //Reset everything
     console.log('Starting Quiz!');
     alert.innerHTML = ' ';
     current = 0;
+    listRevealed = false;
 
     //Select new questions
     pickNewQuestions();
@@ -68,6 +70,7 @@ function startQuiz() {
 
 //Select a new, random set of questions for this quiz session
 function pickNewQuestions() {
+
     //Reset the current session if one exists
     sessionQuestions = [];
     var index;
@@ -76,20 +79,26 @@ function pickNewQuestions() {
     for (let i = 0; i < numQs; i++) {
         index = getRandomIndex();
 
-        while (sessionQuestions.includes(questionBank[index])) {
+        while (sessionQuestions.includes(questionBank[index]))
             index = getRandomIndex();
-        }
+
         sessionQuestions[i] = questionBank[index];
         sessionQuestions[i].userVal = 0.0; //Add a value to each question which keeps track of its score
     }
+
+    //Return random index number between 0 and 99 (100 questions)
+    function getRandomIndex() {
+        return Math.floor(Math.random() * numQs);
+    }
 }
 
-//Display a particular question
+//Display the current question
 function renderQuestion() {
+
     //Change the question text
     question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
 
-    //Change text for neutral question (first one in question bank)
+    //Change the responses for the neutral question (1st in question bank)
     if (sessionQuestions[current].text === questionBank[0].text) {
         choiceSA.innerHTML = "Far-Left";
         choiceSD.innerHTML = "Far-Right";
@@ -106,38 +115,22 @@ function renderQuestion() {
 
 //Change a question's score once it's answered
 function adjust(answer) {
-    sessionQuestions[current].userVal = answer;
-    if (listRevealed) {
-        getRemaining();
-    }
-    nextQuestion();
-}
 
-//Go to the next question
-function nextQuestion() {
-    //If questions remain, go the next one
-    if (current < (numQs - 1)) {
-        current++;
-        renderQuestion();
-    }
-    //Once the last question is reached, see if any are unanswered
-    else {
+    //Modify score, show list of unanswered questions, then go the next question
+    sessionQuestions[current].userVal = answer;
+    if (listRevealed)
         getRemaining();
-        listRevealed = true;
-    }
+    nextQuestion();
 }
 
 //Find all incomplete questions
 function getRemaining() {
-    var remaining = [];
-    var msg = '';
-    var val;
 
     //See which are unfinished
+    var remaining = [];
     for (let i = 0; i < numQs; i++) {
-        if (sessionQuestions[i].userVal === 0.0) {
+        if (sessionQuestions[i].userVal === 0.0)
             remaining.push(i);
-        }
     }
     var len = remaining.length;
     var plural = (len < 2) ? ' ' : 's ';
@@ -149,68 +142,69 @@ function getRemaining() {
         resultsBtn.style.display = 'inline-block';
     }
     //Put the unfinished question numbers in a formatted list
-    else {    
+    else {
+        var msg = '';
+        var num;
         for (let j = 0; j < len; j++) {
-            val = (remaining[j] + 1);
+            num = (remaining[j] + 1);
             if (j === 0)
-                msg += val;
+                msg += num;
             else if (j < (len - 1))
-                msg += ', ' + val;
+                msg += ', ' + num;
             else if (len === 2)
-                msg += ' and ' + val
+                msg += ' and ' + num;
             else
-                msg += ', and ' + val;
+                msg += ', and ' + num;
         }
         alert.innerHTML = 'Please answer question' + plural + msg; //Change the alert text
     }
 }
 
+//Go to the next question
+function nextQuestion() {
+
+    //If questions remain, go the next one
+    if (current < (numQs - 1)) {
+        current++;
+        renderQuestion();
+    }
+    //Once the last question is reached, see if any are unanswered
+    else {
+        listRevealed = true;
+        getRemaining();
+    }
+}
+
 //Go to the previous question
 function previousQuestion() {
+
+    //Only go back if it's possible to do so
     if (current > 0) {
         current--;
         renderQuestion();
     }
 }
 
-//Return random index number between 0 and 99 (100 questions)
-function getRandomIndex() {
-    return Math.floor(Math.random() * numQs);
-}
-
 //Add up the scores for each question
 function calculateScore() {
+
+    //Adjust each axis based on the user's response
     var q;
     for (let i = 0; i < numQs; i++) {
         q = sessionQuestions[i];
-        //Adjust each axis based on response
         score.cultural = roundScore(score.cultural + (q.C * q.userVal));
         score.economic = roundScore(score.economic + (q.E * q.userVal));
         score.authoritarian = roundScore(score.authoritarian + (q.A * q.userVal));
     }
-}
 
-//Round the score to 3 digits
-function roundScore(val) {
-    var precision = 3;
-    return Number((val).toFixed(precision));
+    //Round the score to *3* digits
+    function roundScore(val) {
+        var precision = 3;
+        return Number((val).toFixed(precision));
+    }
 }
 
 //Send the user to the results page
 function seeResults() {
     window.location = 'http://127.0.0.1:3000/results?c=' + score.cultural + '&e=' + score.economic + '&a=' + score.authoritarian;
-}
-
-//End it all (For testing and to minimize headaches)
-function skipToEnd() {
-    
-    function randomScore() {
-        return roundScore((Math.random() * 2.0) - 1.0); //Between -1 and 1
-    }
-
-    console.log("Generating random values");
-    score.cultural = randomScore();
-    score.economic = randomScore();
-    score.authoritarian = randomScore();
-    seeResults();
 }
