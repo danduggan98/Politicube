@@ -1,4 +1,8 @@
-﻿#heading {
+﻿html {
+    height: 101%;
+}
+
+#heading {
     /*text-align: center;*/
 }
 
