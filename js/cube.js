@@ -297,7 +297,7 @@ function displayCube() {
 
         gl.clearColor(0, 0, 0, 0);
         gl.clearDepth(1.0);
-        gl.viewport(-200, 200, canvas.width, canvas.height);
+        gl.viewport(0, 0, canvas.width, canvas.height);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
