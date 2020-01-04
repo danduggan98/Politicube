@@ -1,6 +1,10 @@
-﻿body {}
+﻿html {
+    height: 101%;
+}
 
-#heading{
+body {}
+
+#heading {
     /*text-align: center;*/
 }
 
