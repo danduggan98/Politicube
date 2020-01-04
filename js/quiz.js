@@ -202,5 +202,8 @@ function calculateScore() {
 
 //Send the user to the results page
 function seeResults() {
+
+    //Get the score and pass it as a query string
+    calculateScore();
     window.location = 'http://127.0.0.1:3000/results?c=' + score.cultural + '&e=' + score.economic + '&a=' + score.authoritarian;
 }
