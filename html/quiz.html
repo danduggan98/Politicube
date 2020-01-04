@@ -13,7 +13,6 @@
         <h1 id="title">Politicube</h1>
         <h3 id="subtitle">The 3D Political Compass Test</h3>
     </div>
-    <br>
     <div id="navigation">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -37,13 +36,14 @@
                 <div class="choice" id="A" onclick="adjust(Agree)"></div>
                 <div class="choice" id="D" onclick="adjust(Disagree)"></div>
                 <div class="choice" id="SD" onclick="adjust(StrongDisagree)"></div>
-            </div><br>
-            <div id="previous" onclick="previousQuestion()">Previous</div>
-            <div id="next" onclick="nextQuestion()">Next</div><br><br>
-            <div id="restart" onclick="startQuiz()">Restart</div><br>
-            <div id="alert"></div><br>
+            </div>
+            <div id="responses">
+                <div id="previous" onclick="previousQuestion()">Previous</div>
+                <div id="next" onclick="nextQuestion()">Next</div>
+            </div>
+            <div id="restart" onclick="startQuiz()">Restart</div>
+            <div id="alert"></div>
         </div>
-        <br>
         <button id="results" type="button" onclick="seeResults();" style="display:none">View Results</button>
     </div>
     <div id="start" onclick="startQuiz()">Start Quiz</div>
