@@ -1,5 +1,9 @@
-﻿body {
-    max-width: 1000px;
+﻿html {
+    height: 101%;
+}
+
+body {
+    /*max-width: 1000px;*/
 }
 
 #heading {
@@ -17,11 +21,4 @@
 #animation {
     border-style: solid;
     border-color: black;
-}
-
-#title {
-    /*position: absolute;
-    left: 50%;*/
-    text-align: center;
-    margin: auto;
 }
