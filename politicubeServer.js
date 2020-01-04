@@ -30,6 +30,16 @@ app.get('/FAQ', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'FAQ.html');
 });
 
+//About Us Page
+app.get('/about', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'about.html');
+});
+
+//Donate Page
+app.get('/donate', (req, res) => {
+    res.sendFile(__dirname + 'html/' + 'donate.html');
+});
+
 //Info about the cube + important people
 app.get('/cube', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'cube.html');
@@ -50,7 +60,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
     console.error(err.stack); //Log error details
     res.status(500).send('Error 500 - Internal Server Error');
-    //Create 500 page later
+    //Create fancy 500 page later
 });
 
 //Server listens on port 3000
