@@ -25,6 +25,16 @@ app.get('/results', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'results.html');
 });
 
+//Info about the cube + important people
+app.get('/cube', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'cube.html');
+});
+
+//Info about the ideologies
+app.get('/ideologies', (req, res) => {
+    res.sendFile(__dirname + '/html/' + 'ideologies.html');
+});
+
 //FAQ page
 app.get('/FAQ', (req, res) => {
     res.sendFile(__dirname + '/html/' + 'FAQ.html');
@@ -37,17 +47,7 @@ app.get('/about', (req, res) => {
 
 //Donate Page
 app.get('/donate', (req, res) => {
-    res.sendFile(__dirname + 'html/' + 'donate.html');
-});
-
-//Info about the cube + important people
-app.get('/cube', (req, res) => {
-    res.sendFile(__dirname + '/html/' + 'cube.html');
-});
-
-//Info about the ideologies
-app.get('/ideologies', (req, res) => {
-    res.sendFile(__dirname + '/html/' + 'ideologies.html');
+    res.sendFile(__dirname + '/html/' + 'donate.html');
 });
 
 //Handle 404 errors
