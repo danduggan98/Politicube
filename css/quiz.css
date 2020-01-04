@@ -1,7 +1,22 @@
-﻿/* Limit Width */
-#quizWrap {
-    max-width: 1920px;
+﻿#heading {
+    /*text-align: center;*/
 }
+
+#title {
+    text-align: center;
+}
+
+#subtitle {
+    text-align: center;
+}
+
+/* Limit Width */
+#quizWrap {
+    /*max-width: 700px;*/
+}
+
+/* Space for quiz */
+#quiz {}
 
 /* "Start Quiz" Button */
 #start {
@@ -20,22 +35,6 @@
     /* When you click it */
     #start:active {
         background-color: lightgrey;
-    }
-
-/* Randomizer button */
-#randomize {
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: yellow;
-}
-    /* When you mouse over it */
-    #randomize:hover {
-        border: 2px solid black;
-        font-weight: bold;
-        background-color: red;
     }
 
 /* Restart the quiz */
@@ -61,12 +60,11 @@
 
 /* Text for the current question */
 #question {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 /* Space containing the response buttons */
-#choices {
-}
+#choices {}
 
 /* Response buttons */
 .choice {
@@ -97,6 +95,7 @@
     cursor: pointer;
     padding: 5px;
     background-color: aqua;
+    position: absolute;
 }
     /* When you mouse over it */
     #previous:hover {
@@ -117,6 +116,7 @@
     cursor: pointer;
     padding: 5px;
     background-color: aqua;
+    position: absolute;
 }
     /* When you mouse over it */
     #next:hover {
