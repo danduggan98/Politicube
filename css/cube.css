@@ -1,3 +1,27 @@
 ﻿body {
-    background-color: black;
+    max-width: 1000px;
+}
+
+#heading {
+    /*text-align: center;*/
+}
+
+#title {
+    text-align: center;
+}
+
+#subtitle {
+    text-align: center;
+}
+
+#animation {
+    border-style: solid;
+    border-color: black;
+}
+
+#title {
+    /*position: absolute;
+    left: 50%;*/
+    text-align: center;
+    margin: auto;
 }
