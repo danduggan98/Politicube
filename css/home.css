@@ -1,5 +1,7 @@
-﻿body {
+﻿body {}
 
+#heading{
+    /*text-align: center;*/
 }
 
 #title {
@@ -7,5 +9,5 @@
 }
 
 #subtitle {
-    text-align:center;
+    text-align: center;
 }
