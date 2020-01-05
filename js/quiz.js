@@ -50,6 +50,7 @@ function startQuiz() {
 
     //Display quiz, hide start button and results button
     quiz.style.display = "inline-block";
+    restart.style.display = "block";
     start.style.display = "none";
     resultsBtn.style.display = "none";
 
