@@ -93,7 +93,7 @@ function pickNewQuestions() {
 function renderQuestion() {
 
     //Change the question text
-    question.innerHTML = "<p>" + (current + 1) + ". " + sessionQuestions[current].text + "</p>";
+    question.innerHTML = "<p><b>" + (current + 1) + ".</b> " + sessionQuestions[current].text + "</p>";
 
     //Change the responses for the neutral question (1st in question bank)
     if (sessionQuestions[current].text === questionBank[0].text) {
