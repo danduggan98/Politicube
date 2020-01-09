@@ -1,4 +1,6 @@
 version: 0.2
+runtime-versions:
+  nodejs: 10
 
 phases:
   install:
