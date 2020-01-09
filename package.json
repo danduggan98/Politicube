@@ -1,0 +1,9 @@
+{
+    "name": "politicube",
+    "description": "The 3D political compass test",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "^4.16.4"
+    }
+}
