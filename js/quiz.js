@@ -206,5 +206,5 @@ function seeResults() {
 
     //Get the score and pass it as a query string
     calculateScore();
-    window.location = 'http://127.0.0.1:3000/results?c=' + score.cultural + '&e=' + score.economic + '&a=' + score.authoritarian;
+    window.location = 'http://politicube.net/results?c=' + score.cultural + '&e=' + score.economic + '&a=' + score.authoritarian;
 }
