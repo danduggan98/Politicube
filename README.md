@@ -1,3 +1,4 @@
 # Politicube
 A 3-Dimensional political compass test
-politicube.net
+
+Visit us at [politicube.net](politicube.net)
