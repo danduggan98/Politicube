@@ -1,4 +1,4 @@
 # Politicube
-The 3-Dimensional Political Compass Test
+Find out where you lie on the political spectrum in the web's most sophisticated political compass test
 
-Visit us at [politicube.net](http://politicube.net)
+Visit us [here](http://politicube.net)
