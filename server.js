@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
     //Create fancy 500 page later
 });
 
-//Server listens on port 3000
+//Server listens on native port, or on 3000 if in a local environment
 var port = process.env.PORT || 3000;
 var server = app.listen(port, () => {
     console.log('Server listening on port', port);
